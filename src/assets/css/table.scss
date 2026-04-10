@@ -1,0 +1,56 @@
+.el-table {
+    background-color: transparent !important;
+    color: #fff;
+}
+
+.el-table tr {
+    background-color: transparent;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover>td.el-table__cell {
+    background-color: rgba(255, 255, 255, 0.5)
+}
+
+.el-table thead {
+    color: var(--color-primary);
+}
+
+.el-table td.el-table__cell,
+.el-table th.el-table__cell.is-leaf,
+.el-table th.el-table__cell {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.el-table__body,
+.el-table__header {
+    width: 100% !important;
+}
+
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+    background-color: transparent;
+}
+
+
+.el-table__header-wrapper {
+    background-color: rgba(33, 149, 224, 0.2);
+    font-size: var(--font-size-32) !important;
+
+}
+
+.el-table .el-table__cell {
+    padding: var(--font-size-12) 0;
+}
+
+.el-table .cell {
+    line-height: normal !important;
+}
+
+.el-table--striped .el-table__body tr.el-table__row--striped {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.102) 100%);
+}
+
+.el-table--striped .el-table__body tr.el-table__row--striped:hover {
+    background-color: rgba(255, 255, 255, 0.5)
+}

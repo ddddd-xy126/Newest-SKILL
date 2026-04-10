@@ -1,0 +1,5 @@
+// px 转 rem 函数，基准根字号 16px
+// 用法：font-size: pxToRem(28); → 1.75rem
+@function pxToRem($px, $base: 16) {
+  @return ($px / $base) * 1rem;
+}

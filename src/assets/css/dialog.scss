@@ -1,0 +1,40 @@
+.el-dialog {
+    position: relative;
+    margin: 0 auto 50px;
+    background: var(--box-content-color);
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border: var(--box-content-border);
+
+    .el-dialog__header {
+
+        padding: 3rem;
+
+        .el-dialog__title {
+            font-size: var(--font-size-50);
+            font-family: 'Alibaba PuHuiTi-Medium';
+            color: var(--color-primary);
+        }
+
+
+        .el-dialog__headerbtn {
+
+            border: none;
+            outline: 0;
+            cursor: pointer;
+            font-size: var(--font-size-50);
+            font-weight: 600;
+
+
+            .el-dialog__close {
+                color: var(--color-primary);
+            }
+        }
+    }
+
+
+}

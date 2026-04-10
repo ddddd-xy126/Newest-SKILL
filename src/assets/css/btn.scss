@@ -1,0 +1,114 @@
+// 按钮相关变量
+:root {
+    --btn-primary-bg: linear-gradient(135deg, #1776EE 0%, #31AEFF 100%);
+    --btn-primary-hover-bg: linear-gradient(135deg, #0F5FCC 0%, #2A9AE6 100%);
+    --btn-secondary-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    --btn-secondary-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+
+    --btn-border-radius: 6px;
+    --btn-border: 1px solid rgba(255, 255, 255, 0.2);
+    --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --btn-hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    --btn-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// 基础按钮样式
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-16);
+    font-family: var(--font-family-primary-Medium);
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    border: var(--btn-border);
+    border-radius: var(--btn-border-radius);
+    background: var(--btn-secondary-bg);
+    color: var(--color-primary);
+    box-shadow: var(--btn-shadow);
+    transition: var(--btn-transition);
+
+    // 悬停效果
+    &:hover {
+        background: var(--btn-secondary-hover-bg);
+        box-shadow: var(--btn-hover-shadow);
+        transform: translateY(-2px);
+    }
+
+    // 激活效果
+    &:active {
+        transform: translateY(0);
+    }
+
+    // 禁用状态
+    &:disabled,
+    &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+
+        &:hover {
+            background: var(--btn-secondary-bg);
+            transform: none;
+            box-shadow: var(--btn-shadow);
+        }
+    }
+}
+
+// 主要按钮
+.btn-primary {
+    background: var(--btn-primary-bg);
+    border-color: transparent;
+
+    &:hover {
+        background: var(--btn-primary-hover-bg);
+    }
+}
+
+// 次要按钮（默认样式）
+.btn-secondary {
+    background: var(--btn-secondary-bg);
+    border-color: rgba(255, 255, 255, 0.3);
+
+    &:hover {
+        background: var(--btn-secondary-hover-bg);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+// 文本按钮
+.btn-text {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem 1rem;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+// 按钮尺寸
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: var(--font-size-20);
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-14);
+}
+
+// 块级按钮
+.btn-block {
+    display: flex;
+    width: 100%;
+}

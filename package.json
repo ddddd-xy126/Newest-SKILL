@@ -1,0 +1,47 @@
+{
+  "name": "vue-template",
+  "author": "Hua<51world>",
+  "private": true,
+  "scripts": {
+    "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@antv/g2": "^5.2.12",
+    "axios": "^1.6.8",
+    "core-js": "^3.6.4",
+    "echarts": "^5.5.0",
+    "echarts-gl": "^2.0.9",
+    "element-ui": "^2.15.14",
+    "flv.js": "^1.6.2",
+    "regenerator-runtime": "^0.13.3",
+    "throttle-debounce": "^5.0.2",
+    "tslib": "^2.8.1",
+    "vue": "^2.6.11",
+    "vue-jsmpeg-player": "^1.2.2",
+    "vue-router": "^3.5.2",
+    "vuex": "^3.6.2",
+    "wdpapi": "^1.14.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.2.3",
+    "@vue/cli-service": "^4.2.3",
+    "code-inspector-plugin": "^1.4.6",
+    "eventsource-polyfill": "^0.9.6",
+    "sass": "^1.32.13",
+    "sass-loader": "^10.2.0",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

@@ -1,0 +1,31 @@
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    -webkit-border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 8px;
+    background-color: rgba(1, 1, 1, 0.3);
+    -webkit-border-radius: 6px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    width: 8px;
+    background-color: rgba(1, 1, 1, 0.3);
+    -webkit-border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 滚动条鼠标移上去的样式 */
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: rgba(1, 1, 1, 0.5);
+}

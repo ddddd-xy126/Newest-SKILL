@@ -1,0 +1,11 @@
+{
+  "url": "http://10.67.8.191:8890/service",
+  "order": "bf29098bc1a0754a3d5639e81e1c91bf",
+  "sourceUrl": "https://51world-1371713115.cos.ap-guangzhou.myqcloud.com/729/",
+  "resolution": [1920, 1080],
+  "isNeedFullScreen":false,
+  "defaultCameraCoord": [
+    110.05925544704131, 40.70240048457718, 2202.190403164863
+  ]
+}
+  
