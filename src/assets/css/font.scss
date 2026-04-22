@@ -110,22 +110,43 @@
 }
 
 @font-face {
+  font-family: "OPPOSans-Heavy";
+  src: url("~@assets/fonts/OPPOSans-H.TTF");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "OPPOSans-Bold";
   src: url("~@assets/fonts/OPPOSans-B.ttf");
-  font-weight: bold;
+  font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "OPPOSans-Medium";
   src: url("~@assets/fonts/OPPOSans-M.ttf");
-  font-weight: normal;
+  font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "OPPOSans-Regular";
   src: url("~@assets/fonts/OPPOSans-R.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "OPPOSans-Light";
+  src: url("~@assets/fonts/OPPOSans-L.TTF");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlimamaAgileVF-Thin";
+  src: url("~@assets/fonts/AlimamaAgileVF-Thin.ttf");
   font-weight: normal;
   font-style: normal;
 }

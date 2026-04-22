@@ -1,39 +1,17 @@
-@import "./font.scss";
+﻿@import "./font.scss";
 @import "./dialog.scss";
 @import "./table.scss";
 @import "./btn.scss";
 
 // 定义全局字体大小变量
 :root {
-  //计算公式： xx px / 16 = xx rem
-  --font-size-200: 12.5rem;
-  --font-size-150: 9.375rem;
-  --font-size-100: 6.25rem;
-  --font-size-80: 5rem;
-  --font-size-72: 4.5rem;
-  --font-size-64: 4rem;
-  --font-size-50: 3.125rem;
-  --font-size-45: 2.8125rem;
-  --font-size-40: 2.5rem;
-  --font-size-38: 2.375rem;
-  --font-size-34: 2.125rem;
-  --font-size-32: 2rem;
-  --font-size-28: 1.75rem;
-  --font-size-24: 1.5rem;
-  --font-size-22: 1.375rem;
-  --font-size-20: 1.25rem;
-  --font-size-18: 1.125rem;
-  --font-size-16: 1rem;
-  --font-size-14: 0.875rem;
-  --font-size-12: 0.75rem;
-  --font-size-10: 0.625rem;
-  --font-size-8: 0.5rem;
-  --font-size-6: 0.375rem;
+  // 字体大小统一使用 pxToRem() 函数，无需定义 CSS 变量
+  // 用法示例：font-size: pxToRem(28); → 1.75rem
 
   // 字体颜色
-  --color-primary: #aec6d8; // 主要字体颜色
-  --color-secondary: #a3b6c0; // 次要字体颜色
-  --color-desc: rgba(255, 255, 255, 0.4); // 其他变量...
+  --color-primary: #ffffff; // 主要字体颜色
+  --color-secondary: #ffffff80; // 次要字体颜色
+  --color-desc: rgba(255, 255, 255, 0.5); // 其他变量...
   --text-shadow-blue: 0 0 10px rgba(49, 174, 255, 0.9);
 
   // 定义全局渐变颜色
@@ -45,7 +23,8 @@
   --font-family-primary-Bold: "Montserrat-Bold";
   --font-family-primary-SemiBold: "Montserrat-SemiBold";
   --font-family-primary-Medium: "Montserrat-Medium";
-
+  
+  //阿里巴巴字体
   --font-family-Alibaba-PuHuiTi-Bold: "Alibaba PuHuiTi-Bold";
   --font-family-Alibaba-PuHuiTi-Heavy: "Alibaba PuHuiTi-Heavy";
   --font-family-Alibaba-PuHuiTi-Light: "Alibaba PuHuiTi-Light";
@@ -61,10 +40,15 @@
 
   --font-family-ShangShouXuanCangTi: "ShangShouXuanCangTi";
   --font-family-Alimama-ShuHeiTi-Bold: "Alimama-ShuHeiTi-Bold";
-
+  
+  // OPPOSans 字体
+  --font-family-OPPOSans-Heavy: "OPPOSans-Heavy";
   --font-family-OPPOSans-Bold: "OPPOSans-Bold";
   --font-family-OPPOSans-Medium: "OPPOSans-Medium";
   --font-family-OPPOSans-Regular: "OPPOSans-Regular";
+  --font-family-OPPOSans-Light: "OPPOSans-Light";
+
+  --font-family-AlimamaAgileVF-Thin: "AlimamaAgileVF-Thin";
 
   //box全局
   --box-title-color: rgba(45, 154, 222, 0.4);
@@ -99,22 +83,20 @@ html {
   -ms-user-select: none;
   user-select: none;
 
-  // width: 3840px;
-  // height: 2160px;
-  // font-size: 13.824px;
-
   width: 100vw;
   height: 100vh;
-  font-size: 0.83vw;
+  font-size: 0.7vw;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
   width: 100%;
+  height: 100vh;
   background-color: transparent;
   position: relative;
-  padding-top: 56.25%;
   font-family: var(--font-family-primary-Light);
+  overflow: hidden;
 }
 
 #app {
@@ -127,7 +109,7 @@ body {
 }
 
 h1 {
-  font-size: var(--font-size-20);
+  font-size: pxToRem(20);
   color: var(--color-primary);
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -135,7 +117,7 @@ h1 {
 
   &.logo {
     font-family: var(--font-family-primary-Medium);
-    font-size: var(--font-size-64);
+    font-size: pxToRem(28);
     background: var(--gradient-normal);
     text-align: center;
     -webkit-background-clip: text;
@@ -149,17 +131,17 @@ h1 {
 }
 
 h2 {
-  font-size: var(--font-size-10);
+  font-size: pxToRem(10);
   color: var(--color-primary);
 }
 
 h3 {
-  font-size: var(--font-size-28);
+  font-size: pxToRem(28);
   color: var(--color-primary);
 }
 
 span {
-  font-size: var(--font-size-22);
+  font-size: pxToRem(22);
   color: var(--color-primary);
 
   &.shadow {
@@ -167,11 +149,11 @@ span {
   }
 
   &.table {
-    font-size: var(--font-size-20);
+    font-size: pxToRem(20);
   }
 
   &.tag {
-    font-size: var(--font-size-24);
+    font-size: pxToRem(24);
   }
 
   &.desc {
@@ -179,7 +161,7 @@ span {
   }
 
   &.en-title {
-    font-size: var(--font-size-10);
+    font-size: pxToRem(10);
     color: var(--color-desc);
   }
 }
@@ -187,7 +169,7 @@ span {
 .header-btn {
   width: 3.75rem;
   height: 1.375rem;
-  font-size: var(--font-size-12);
+  font-size: pxToRem(12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,4 +192,12 @@ span {
   background-clip: text;
   color: transparent;
   font-weight: bold;
+}
+
+.font-color-gradient-title {
+  background: linear-gradient(180deg, #ffffff 24%, #80d8c9 116%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }

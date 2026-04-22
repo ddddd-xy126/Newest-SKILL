@@ -31,11 +31,6 @@
         />
         <span class="right-btn-text">{{ btn.name }}</span>
       </div>
-      <span class="right-label">监狱管理局</span>
-      <span class="right-lang">中文<br/>EN</span>
-      <span class="right-separator"></span>
-      <div class="right-icon-btn"> 
-      </div>
     </div>
   </div>
 </template>
@@ -54,13 +49,7 @@ export default {
         { id: 1, name: "综合态势", path: "/page_1/1", pathPrefix: "/page_1", isActive: false },
         { id: 2, name: "综合安防", path: "/page_2/1", pathPrefix: "/page_2", isActive: false },
         { id: 3, name: "便捷通行", path: "/page_3/1", pathPrefix: "/page_3", isActive: false },
-        { id: 4, name: "能效管理", path: "/page_4/1", pathPrefix: "/page_4", isActive: false },
-        { id: 5, name: "设施管理", path: "/page_5/1", pathPrefix: "/page_5", isActive: false },
-        { id: 6, name: "环境空间", path: "/page_6/1", pathPrefix: "/page_6", isActive: false },
-        { id: 7, name: "资产管理", path: "/page_7/1", pathPrefix: "/page_7", isActive: false },
-        { id: 8, name: "办公会议", path: "/page_8/1", pathPrefix: "/page_8", isActive: false },
-        { id: 9, name: "应急管理", path: "/page_9/1", pathPrefix: "/page_9", isActive: false },
-        { id: 10, name: "网络管理", path: "/page_10/1", pathPrefix: "/page_10", isActive: false },
+        { id: 4, name: "能效管理", path: "/page_4/1", pathPrefix: "/page_4", isActive: false }, 
       ],
       rightBtns: [
         { id: 1, name: "主页", isActive: true },
@@ -98,10 +87,7 @@ export default {
 .header {
   width: 100%;
   height: 100%;
-  position: relative;
-  background-image: url("~@images/layout/top.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  position: relative; 
 }
 
 /* 左侧标题 */
@@ -132,10 +118,7 @@ export default {
   transform: translateX(-50%);
   bottom: 5%;
   height: 45%;
-  display: flex;
-  background-image: url("~@images/layout/nav-bg.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  display: flex; 
   align-items: center;
   gap: 0.2rem;
 }

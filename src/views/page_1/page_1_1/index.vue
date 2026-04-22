@@ -60,19 +60,43 @@
     <!-- 左侧面板区域 -->
     <template v-slot:aside-left>
       <div class="content-left">
-        <Box class="box-people-vehicle" type="simple" title="人车数量统计" :delayTime="100" position="left">
+        <Box
+          class="box-people-vehicle"
+          type="simple"
+          title="人车数量统计"
+          :delayTime="100"
+          position="left"
+        >
           <div class="box-main-content"></div>
         </Box>
 
-        <Box class="box-security-alarm" type="simple" title="安防告警统计" :delayTime="200" position="left">
+        <Box
+          class="box-security-alarm"
+          type="simple"
+          title="安防告警统计"
+          :delayTime="200"
+          position="left"
+        >
           <div class="box-main-content"></div>
         </Box>
 
-        <Box class="box-asset-classify" type="simple" title="资产分类统计统计" :delayTime="300" position="left">
+        <Box
+          class="box-asset-classify"
+          type="simple"
+          title="资产分类统计统计"
+          :delayTime="300"
+          position="left"
+        >
           <div class="box-main-content"></div>
         </Box>
 
-        <Box class="box-energy-consume" type="simple" title="能耗统计" :delayTime="400" position="left">
+        <Box
+          class="box-energy-consume"
+          type="simple"
+          title="能耗统计"
+          :delayTime="400"
+          position="left"
+        >
           <div class="box-main-content"></div>
         </Box>
       </div>
@@ -81,33 +105,44 @@
     <!-- 右侧面板区域 -->
     <template v-slot:aside-right>
       <div class="content-right">
-        <Box class="box-workorder" type="compact" title="工单处理统计" :delayTime="100" position="right">
-          <template v-slot:header-right>
-            <div class="workorder-toggle">
-              <span
-                class="toggle-btn"
-                :class="{ active: workorderMode === 'day' }"
-                @click="workorderMode = 'day'"
-              >日</span>
-              <span
-                class="toggle-btn"
-                :class="{ active: workorderMode === 'month' }"
-                @click="workorderMode = 'month'"
-              >月</span>
-            </div>
-          </template>
+        <Box
+          class="box-workorder"
+          type="compact"
+          title="工单处理统计"
+          :delayTime="100"
+          position="right"
+        >
+          <template v-slot:header-right> </template>
           <div class="box-main-content"></div>
         </Box>
 
-        <Box class="box-meeting-room" type="simple" title="会议室使用率" :delayTime="200" position="right">
+        <Box
+          class="box-meeting-room"
+          type="simple"
+          title="会议室使用率"
+          :delayTime="200"
+          position="right"
+        >
           <div class="box-main-content"></div>
         </Box>
 
-        <Box class="box-indoor-env" type="simple" title="室内环境质量统计" :delayTime="300" position="right">
+        <Box
+          class="box-indoor-env"
+          type="simple"
+          title="室内环境质量统计"
+          :delayTime="300"
+          position="right"
+        >
           <div class="box-main-content"></div>
         </Box>
 
-        <Box class="box-smart-warning" type="simple" title="智能预警统计" :delayTime="400" position="right">
+        <Box
+          class="box-smart-warning"
+          type="simple"
+          title="智能预警统计"
+          :delayTime="400"
+          position="right"
+        >
           <div class="box-main-content"></div>
         </Box>
       </div>

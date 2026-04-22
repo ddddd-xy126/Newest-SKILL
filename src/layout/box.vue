@@ -1,13 +1,20 @@
 <template>
   <transition :name="`slide-${position}`">
-    <div class="box" v-if="isShow" :style="{ 'margin-bottom': footerBoxStyle['margin-bottom'] || '3%' }">
+    <div
+      class="box"
+      v-if="isShow"
+      :style="{ 'margin-bottom': footerBoxStyle['margin-bottom'] || '3%' }"
+    >
       <!-- minimal: 无头部 -->
       <template v-if="type !== 'minimal'">
         <!-- default: 完全 slot 控制（向后兼容） -->
         <div class="header-container" v-if="type === 'default'">
           <div class="box-header-left">
             <div class="box-sub-header">
-              <header class="box-header" :style="{ width: footerBoxStyle['width'] || '65%' }">
+              <header
+                class="box-header"
+                :style="{ width: footerBoxStyle['width'] || '65%' }"
+              >
                 <slot name="header"></slot>
               </header>
               <header class="box-header-en">
@@ -126,12 +133,6 @@ export default {
     margin: 0;
     height: 3.125rem;
     padding-bottom: 0.2rem;
-    background-image: url("~@images/layout/box-header.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-
-    .box-sub-header {
-    }
   }
 }
 

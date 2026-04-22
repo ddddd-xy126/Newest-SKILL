@@ -47,8 +47,7 @@
   <div class="nav-item-container" @click="navClickEvent(item)">
     <div :class="['nav-text', { active: item.isActive }]">
       <span>{{ item.name }}</span>
-    </div>
-    <img v-if="item.isActive" class="bgImg" src="@images/layout/navItem-bg-active.png" alt="" />
+    </div> 
   </div>
 </template>
 

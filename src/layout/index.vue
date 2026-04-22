@@ -23,8 +23,7 @@
     </main>
     <main class="layout-scene" v-if="scene">
       <slot name="scene"></slot>
-    </main>
-    <img class="masktem" src="@images/layout/mask.png" alt="" />
+    </main> 
     <div class="footer-tool" v-if="footerTool">
       <slot name="footer-tool"></slot>
     </div>
