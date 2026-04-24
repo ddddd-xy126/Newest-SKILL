@@ -25,7 +25,7 @@
       align-items: center;
 
       .header-title {
-        font-size: var(--font-size-32);
+        font-size: pxToRem(32);
         color: #fff;
       }
 
@@ -39,7 +39,7 @@
 
         .font-color-gradient-red {
           padding: 0 1rem;
-          font-size: var(--font-size-32);
+          font-size: pxToRem(32);
         }
       }
 
@@ -53,7 +53,7 @@
 
         .font-color-gradient-blue {
           padding: 0 1rem;
-          font-size: var(--font-size-32);
+          font-size: pxToRem(32);
         }
       }
 
@@ -62,7 +62,7 @@
         display: flex;
         align-items: center;
         color: #ffffff;
-        font-size: var(--font-size-28);
+        font-size: pxToRem(28);
 
         .circle {
           width: 1.6rem;
@@ -86,7 +86,7 @@
 
         .header-text {
           margin-left: 0.3rem;
-          font-size: var(--font-size-28);
+          font-size: pxToRem(28);
           color: #ffffff;
           white-space: nowrap;
         }
@@ -94,7 +94,7 @@
     }
 
     .header-close {
-      font-size: var(--font-size-40);
+      font-size: pxToRem(40);
       color: #fff;
       cursor: pointer;
     }

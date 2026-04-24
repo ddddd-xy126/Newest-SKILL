@@ -71,7 +71,7 @@ export default {
       isVideoSelected: false,
       isPlaying: true,
       connectionStatus: "connecting", // connecting, connected, disconnected
-      statusText: "连接中...",
+      statusText: "连接�?..",
       trackPathData: {
         人员警示列表告警: {
           pathPoi: [
@@ -143,13 +143,13 @@ export default {
         name: "showThePath",
         title: this.config.title,
         data: this.trackPathData[this.config.title],
-        status: this.isVideoSelected,   //是否开启轨迹字段
+        status: this.isVideoSelected,   //是否开启轨迹字�?
       };
 
       w51_event("EventKey", jsondata);
     },
     showTheDevice() {
-      console.log("查看设备的特效");
+      console.log("查看设备的特�?);
       this.isVideoSelected = !this.isVideoSelected;
       // console.log(this.isVideoSelected, '查看设备')
       const jsondata = {
@@ -173,7 +173,7 @@ export default {
       w51_event("EventKey", jsondata);
     },
     dispatchWorkOrder() {
-      console.log("派发工单的特效", this.config);
+      console.log("派发工单的特�?, this.config);
     },
   },
 };
@@ -219,7 +219,7 @@ export default {
           text-align: center;
           background-color: rgba(32, 137, 205, 0.5);
           color: rgba(191, 207, 216, 1);
-          font-size: var(--font-size-28);
+          font-size: pxToRem(28);
           padding: 0.4rem 0;
         }
 
@@ -229,7 +229,7 @@ export default {
           background-color: rgba(255, 255, 255, 0.06);
           text-align: start;
           padding: 0.4rem 1rem;
-          font-size: var(--font-size-28);
+          font-size: pxToRem(28);
         }
       }
     }
@@ -251,7 +251,7 @@ export default {
       .handout {
         width: 70%;
         height: 3rem;
-        font-size: var(--font-size-28);
+        font-size: pxToRem(28);
         text-align: center;
         cursor: pointer;
         display: flex;
@@ -314,16 +314,16 @@ export default {
       .detail-label {
         color: rgba(191, 207, 216, 1);
         margin-bottom: 0.5em;
-        font-size: var(--font-size-28);
+        font-size: pxToRem(28);
         padding-left: 1.5rem;
       }
 
       .detail-content {
         padding-left: 1.5rem;
         color: #fff;
-        font-size: var(--font-size-28);
+        font-size: pxToRem(28);
         display: -webkit-box;
-        -webkit-line-clamp: 2; // 限制最多显示2行
+        -webkit-line-clamp: 2; // 限制最多显�?�?
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;

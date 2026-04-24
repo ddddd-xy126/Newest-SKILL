@@ -110,7 +110,7 @@ export default {
   }
 
   .label {
-    font-size: var(--font-size-28);
+    font-size: pxToRem(28);
     color: #bfcfd8;
     white-space: nowrap;
     text-align: center;

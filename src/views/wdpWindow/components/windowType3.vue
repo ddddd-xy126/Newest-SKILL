@@ -1,15 +1,15 @@
 <template>
   <div class="video-type3">
     <div class="item">
-      <div class="item-title"><p>Âßì</p><p>Âêç</p></div>
+      <div class="item-title"><p>Âß?/p><p>Âê?/p></div>
       <div class="item-content">{{ config.name }}</div>
     </div>
     <div class="item">
-      <div class="item-title"><p>Â∑•</p><p>Âè∑</p></div>
+      <div class="item-title"><p>Â∑?/p><p>Âè?/p></div>
       <div class="item-content">{{ config.workNumber }}</div>
     </div>
     <div class="item">
-      <div class="item-title"><p>ËÅî</p><p>Á≥ª</p><p>Êñπ</p><p>Âºè</p></div>
+      <div class="item-title"><p>ËÅ?/p><p>Á≥?/p><p>Êñ?/p><p>Âº?/p></div>
       <div class="item-content">{{ config.phone }}</div>
     </div>
   </div>
@@ -52,7 +52,7 @@ export default {
   .item {
     display: flex;
     color: #fff;
-    font-size: var(--font-size-38);
+    font-size: pxToRem(38);
     margin-top: 1.2rem;
     height: 6.5rem;
     .item-title {

@@ -35,12 +35,12 @@
 
 .el-table__header-wrapper {
     background-color: rgba(33, 149, 224, 0.2);
-    font-size: var(--font-size-32) !important;
+    font-size: pxToRem(32) !important;
 
 }
 
 .el-table .el-table__cell {
-    padding: var(--font-size-12) 0;
+    padding: pxToRem(12) 0;
 }
 
 .el-table .cell {

@@ -60,7 +60,7 @@ export default {
 }
 
 .title {
-  font-size: var(--font-size-8);
+  font-size: pxToRem(8);
   color: #dff3ff;
   font-family: var(--font-family-primary-Medium);
   letter-spacing: 0.02rem;
@@ -69,7 +69,7 @@ export default {
 .status {
   display: inline-flex;
   align-items: center;
-  font-size: var(--font-size-8);
+  font-size: pxToRem(8);
   letter-spacing: 0.02rem;
 }
 
@@ -90,7 +90,7 @@ export default {
 }
 
 .label {
-  font-size: var(--font-size-8);
+  font-size: pxToRem(8);
   color: #eef8ff;
 }
 
@@ -120,7 +120,7 @@ export default {
 }
 
 .value {
-  font-size: var(--font-size-12);
+  font-size: pxToRem(12);
   color: #ffffff;
   font-family: var(--font-family-primary-Bold);
   text-shadow: 0 0 0.1rem rgba(105, 218, 255, 0.34);

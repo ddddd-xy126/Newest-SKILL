@@ -3,7 +3,7 @@
   position: relative;
   width: 7.8rem;
   color: white;
-  font-size: var(--font-size-32);
+  font-size: pxToRem(32);
 
   .park-icon {
     position: relative;
@@ -24,17 +24,17 @@
       bottom: 15%;
       width: 0;
       height: 0;
-      border-left: var(--font-size-10) solid transparent;
-      border-right: var(--font-size-10) solid transparent;
+      border-left: pxToRem(10) solid transparent;
+      border-right: pxToRem(10) solid transparent;
       transition: transform 0.3s ease;
 
       &.up {
-        border-bottom: var(--font-size-12) solid #ffaa00;
+        border-bottom: pxToRem(12) solid #ffaa00;
         transform: rotate(0deg);
       }
 
       &.down {
-        border-bottom: var(--font-size-12) solid #ffaa00;
+        border-bottom: pxToRem(12) solid #ffaa00;
         transform: rotate(180deg);
       }
     }
@@ -50,7 +50,7 @@
     bottom: 70%;
     left: 50%;
     transform: translateX(-50%);
-    gap: var(--font-size-28);
+    gap: pxToRem(28);
     z-index: -1;
 
     .menu-item {
@@ -59,7 +59,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: var(--font-size-32);
+      font-size: pxToRem(32);
 
       &.active {
         background: linear-gradient(90deg,
@@ -144,7 +144,7 @@ export default {
   },
 
   mounted() {
-    // 初始化楼层数据
+    // 初始化楼层数�?
     this.data = [...this.floorData];
     // 默认选中第一个选项
     // this.selectFloor(this.data[0]);
@@ -170,7 +170,7 @@ export default {
           this.$message && this.$message.success("已复制到剪贴板！");
           // 或者用 alert("已复制到剪贴板！");
         } catch (e) {
-          this.$message && this.$message.error("复制失败，请手动复制！");
+          this.$message && this.$message.error("复制失败，请手动复制�?);
         }
       }
     },

@@ -129,14 +129,14 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: var(--font-size-24);
+    font-size: pxToRem(24);
 
     .header {
       display: flex;
       align-items: center;
 
       .header-title {
-        font-size: var(--font-size-38);
+        font-size: pxToRem(38);
         color: #fff;
       }
 
@@ -150,14 +150,14 @@ export default {
 
         .font-color-gradient-red {
           padding: 0 1rem;
-          font-size: var(--font-size-32);
+          font-size: pxToRem(32);
         }
       }
     }
 
     .header-close {
       cursor: pointer;
-      font-size: var(--font-size-32);
+      font-size: pxToRem(32);
       color: #ffffff;
     }
   }
@@ -212,7 +212,7 @@ export default {
             text-align: center;
             background-color: rgba(32, 137, 205, 0.5);
             color: rgba(191, 207, 216, 1);
-            font-size: var(--font-size-28);
+            font-size: pxToRem(28);
             padding: 0.4rem 0;
           }
 
@@ -222,7 +222,7 @@ export default {
             background-color: rgba(255, 255, 255, 0.06);
             text-align: start;
             padding: 0.4rem 1rem;
-            font-size: var(--font-size-28);
+            font-size: pxToRem(28);
           }
         }
       }
@@ -247,7 +247,7 @@ export default {
         .handout {
           width: 70%;
           height: 3.5rem;
-          font-size: var(--font-size-28);
+          font-size: pxToRem(28);
           text-align: center;
           cursor: pointer;
           display: flex;
@@ -294,16 +294,16 @@ export default {
 
         .detail-label {
           color: rgba(191, 207, 216, 1);
-          font-size: var(--font-size-28);
+          font-size: pxToRem(28);
           padding: 0.5rem 1.5rem;
         }
 
         .detail-content {
           padding: 0 1.5rem;
           color: #fff;
-          font-size: var(--font-size-28);
+          font-size: pxToRem(28);
           display: -webkit-box;
-          -webkit-line-clamp: 2; // 限制最多显示2行
+          -webkit-line-clamp: 2; // 限制最多显�?�?
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;

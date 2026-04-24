@@ -74,7 +74,7 @@ export default {
 }
 
 .card-title {
-  font-size: var(--font-size-12);
+  font-size: pxToRem(12);
   color: rgba(205, 232, 248, 0.9);
   letter-spacing: 0.03rem;
 }
@@ -89,7 +89,7 @@ export default {
 }
 
 .value {
-  font-size: var(--font-size-32);
+  font-size: pxToRem(32);
   font-family: var(--font-family-primary-Bold);
   color: #ffffff;
   line-height: 1;
@@ -98,7 +98,7 @@ export default {
 
 .unit {
   margin-left: 0.2rem;
-  font-size: var(--font-size-12);
+  font-size: pxToRem(12);
   color: rgba(200, 229, 244, 0.84);
 }
 
@@ -107,7 +107,7 @@ export default {
   z-index: 2;
   margin-top: 0.16rem;
   text-align: center;
-  font-size: var(--font-size-10);
+  font-size: pxToRem(10);
   color: rgba(190, 220, 240, 0.84);
 }
 </style>
