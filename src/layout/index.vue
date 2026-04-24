@@ -23,7 +23,7 @@
     </main>
     <main class="layout-scene" v-if="scene">
       <slot name="scene"></slot>
-    </main> 
+    </main>
     <div class="footer-tool" v-if="footerTool">
       <slot name="footer-tool"></slot>
     </div>
@@ -90,6 +90,7 @@ export default {
       top: 0;
       width: 100%;
       height: 100%;
+      z-index: -1;
     }
   }
 }
