@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WDP 森林防火演练 Demo</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #player {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        #ui-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        button {
+            padding: 8px 15px;
+            background: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff0000;
+        }
+    </style>
+    <!-- 引入 WDP API 脚本 (请确保路径或 CDN 正确，这里假设同级目录下有 wdpapi.js 或使用 CDN) -->
+    <script src="https://unpkg.com/wdpapi@2.2.1/wdpapi.min.js"></script>
+</head>
+
+<body>
+    <!-- 渲染容器 -->
+    <div id="player"></div>
+
+    <!-- UI 交互区 -->
+    <div id="ui-panel">
+        <p id="status-text">场景正在初始化，请稍候...</p>
+        <button id="start-drill-btn" style="display:none;">森林防火演练</button>
+    </div>
+
+    <script>
+        // ==========================================
+        // 🚨【用户配置区】请在此处填写您的专属配置 🚨
+        // ==========================================
+        const CONFIG = {
+            SERVER_URL: 'http://您的IP:Port/service',  // 您的 WDP 渲染服务地址
+            SERVER_ORDER: '在此填写您的32位验证口令',      // 您的 WDP 渲染口令
+            // 演练相关的 Mock 坐标
+            FIRE_LOC: [100.322, 28.535, 3400],
+            TEXT_LOC: [100.322, 28.535, 3450],
+            POI_LOC_1: [100.323, 28.536, 3400],
+            POI_LOC_2: [100.321, 28.534, 3400]
+        };
+
+        let App;
+        let createdObjects = []; // 存储创建的对象用于后续可能的清理
+
+        // 1. 初始化场景
+        function initScene() {
+            if (CONFIG.SERVER_URL.includes("您的IP")) {
+                alert("请先在代码顶部的 CONFIG 中配置正确的 SERVER_URL 和 SERVER_ORDER！");
+                return;
+            }
+
+            App = new window.WdpApi({
+                id: 'player',
+                url: CONFIG.SERVER_URL,
+                order: CONFIG.SERVER_ORDER,
+                resolution: [1920, 1080]
+            });
+
+            App.Renderer.Start().then(res => {
+                if (res.success) {
+                    App.Renderer.RegisterSceneEvent([
+                        {
+                            name: 'OnWdpSceneIsReady',
+                            func: async function (evt) {
+                                if (evt.result.progress === 100) {
+                                    document.getElementById('status-text').innerText = "场景加载完成！";
+                                    document.getElementById('start-drill-btn').style.display = 'block';
+                                }
+                            }
+                        }
+                    ]);
+                } else {
+                    alert("渲染器启动失败：" + res.message);
+                }
+            });
+        }
+
+        // 2. 核心业务逻辑：执行演练
+        async function startFireDrill() {
+            // 2.1 添加火灾特效 (flame)
+            const fireParticle = new App.Particle({
+                "location": CONFIG.FIRE_LOC,
+                "scale3d": [100, 100, 100],
+                "particleType": "flame",
+                "bVisible": true,
+                "entityName": "火灾源"
+            });
+            const fireRes = await App.Scene.Add(fireParticle, { calculateCoordZ: { coordZRef: "surface", coordZOffset: 0 } });
+            if (fireRes.success) createdObjects.push(fireRes.result.object);
+
+            // 2.2 添加 3D 文字 "东林"
+            const text3d = new App.Text3D({
+                "location": CONFIG.TEXT_LOC,
+                "scale3d": [100, 100, 100],
+                "text3DStyle": {
+                    "text": "东林",
+                    "color": "ff0000",
+                    "type": "plain"
+                },
+                "bVisible": true
+            });
+            const textRes = await App.Scene.Add(text3d, { calculateCoordZ: { coordZRef: "surface", coordZOffset: 50 } });
+            if (textRes.success) createdObjects.push(textRes.result.object);
+
+            // 2.3 批量添加消防队 POI
+            const poiData = [
+                {
+                    "type": "Poi",
+                    "location": CONFIG.POI_LOC_1,
+                    "customId": "fire_squad_1",
+                    "entityName": "消防先锋队",
+                    "customData": { name: "消防先锋队", code: "F-01", count: 15 },
+                    "poiStyle": {
+                        "markerNormalUrl": "https://wdpapi.51aes.com/doc-static/images/static/markerNormal.png", // Mock 图片
+                        "markerSize": [60, 69]
+                    }
+                },
+                {
+                    "type": "Poi",
+                    "location": CONFIG.POI_LOC_2,
+                    "customId": "fire_squad_2",
+                    "entityName": "消防支援队",
+                    "customData": { name: "消防支援队", code: "F-02", count: 20 },
+                    "poiStyle": {
+                        "markerNormalUrl": "https://wdpapi.51aes.com/doc-static/images/static/markerNormal.png", // Mock 图片
+                        "markerSize": [60, 69]
+                    }
+                }
+            ];
+
+            const poisRes = await App.Scene.Creates(poiData, { calculateCoordZ: { coordZRef: "surface", coordZOffset: 10 } });
+
+            if (poisRes.success) {
+                createdObjects.push(...poisRes.result.objects);
+
+                // 2.4 为生成的 POI 绑定点击事件，展示 Window
+                poisRes.result.objects.forEach(poiObj => {
+                    poiObj.onClick(async (ev) => {
+                        // 获取挂载在实体上的自定义数据
+                        const info = JSON.parse(ev.result.object.customData);
+
+                        // 由于要求不能使用前端 DOM 组件，必须使用 3D 引擎的 addWINDOWS (这里使用 new App.Window 模拟)
+                        const infoWindow = new App.Window({
+                            "location": ev.result.object.location,
+                            "windowStyle": {
+                                // 在实际工程中，这里通常会挂载配置好的外部 Echarts 或 Html 地址
+                                // 这里使用 Mock URL，业务中可替换为您项目的弹窗地址
+                                "url": `http://wdpapi.51aes.com/doc-static/images/static/echarts.html?name=${encodeURI(info.name)}&code=${info.code}&count=${info.count}`,
+                                "size": [300, 200],
+                                "offset": [0, 50]
+                            },
+                            "customId": "fire_info_window_" + info.code,
+                            "bVisible": true
+                        });
+
+                        const winRes = await App.Scene.Add(infoWindow, { calculateCoordZ: { coordZRef: "surface", coordZOffset: 10 } });
+                        if (winRes.success) {
+                            // 将弹窗也收集起来，方便后续清理
+                            createdObjects.push(winRes.result.object);
+                        }
+                    });
+                });
+
+                alert("森林防火演练已启动：已生成火灾特效、文字及2个消防队POI。请尝试点击POI！");
+            }
+        }
+
+        // 绑定按钮事件
+        document.getElementById('start-drill-btn').addEventListener('click', startFireDrill);
+
+        // 启动执行
+        initScene();
+    </script>
+</body>
+
+</html>
