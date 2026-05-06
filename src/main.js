@@ -8,9 +8,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Vue from 'vue';
 import App from './App.vue';
 import debounce from './directives/clickDebounce'
-
+import RouteParamsKeeper from "./utils/routeParamsKeeper";
+ 
 Vue.use(debounce)
 Vue.use(ElementUI);
+Vue.use(RouteParamsKeeper, {
+  params: ['sceneUrl', 'sceneOrder'],
+  router: router
+});
 Vue.prototype.$axios = axios;
 
 new Vue({

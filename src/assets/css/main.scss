@@ -23,7 +23,7 @@
   --font-family-primary-Bold: "Montserrat-Bold";
   --font-family-primary-SemiBold: "Montserrat-SemiBold";
   --font-family-primary-Medium: "Montserrat-Medium";
-  
+
   //阿里巴巴字体
   --font-family-Alibaba-PuHuiTi-Bold: "Alibaba PuHuiTi-Bold";
   --font-family-Alibaba-PuHuiTi-Heavy: "Alibaba PuHuiTi-Heavy";
@@ -40,7 +40,7 @@
 
   --font-family-ShangShouXuanCangTi: "ShangShouXuanCangTi";
   --font-family-Alimama-ShuHeiTi-Bold: "Alimama-ShuHeiTi-Bold";
-  
+
   // OPPOSans 字体
   --font-family-OPPOSans-Heavy: "OPPOSans-Heavy";
   --font-family-OPPOSans-Bold: "OPPOSans-Bold";
@@ -85,18 +85,32 @@ html {
 
   width: 100vw;
   height: 100vh;
-  font-size: 0.833vw;
+  font-size: 0.7vw;
   overflow: hidden;
 }
 
 body {
   margin: 0;
   width: 100%;
-  height: 100vh;
+  padding-top: 33.71%;
   background-color: transparent;
   position: relative;
   font-family: var(--font-family-primary-Light);
   overflow: hidden;
+}
+
+/* 适配 2296*774（宽高比 ≈ 2.97:1） */
+@media (max-aspect-ratio: 3148/1000) {
+  body {
+    padding-top: 33.71%;
+  }
+}
+
+/* 适配 2898*860（宽高比 ≈ 3.37:1） */
+@media (min-aspect-ratio: 3148/1000) {
+  body {
+    padding-top: 29.7%;
+  }
 }
 
 #app {
