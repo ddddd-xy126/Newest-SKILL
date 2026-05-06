@@ -33,6 +33,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.searchInput {}
+<style lang="scss" scoped> 
 </style>
