@@ -9,9 +9,18 @@
 | `top.png`                  | `src/layout/header.vue`                       | 顶部 Header 整体背景图       |
 | `box-bg.png`               | `src/layout/box.vue`                          | `.box-main` 区域背景图       |
 | `box-header.png`           | `src/layout/box.vue`                          | `.box-header` 标题区域背景图 |
-| `nav-bg.png`               | `src/layout/footer.vue`                       | 底部背景图                   |
-| `navItem-bg.png`           | `src/components/header/navItem-header.vue`    | 导航按钮背景图               |
-| `navItem-bg-active.png`    | `src/components/header/navItem-header.vue`    | 导航按钮选中背景图           |
+| `box-header-iconi.png`     | `src/layout/box.vue`                          | 面板标题前方图标（i=1,2,3…）|
+| `nav-bg.png`               | `src/layout/index.vue`                        | 导航区域整体背景图           |
+| `first-nav-bg.png`         | `src/components/header/navItem-header.vue`    | 一级导航背景图               |
+| `navItem-bg.png`           | `src/components/header/navItem-header.vue`    | 一级导航按钮背景图           |
+| `navItem-bg-active.png`    | `src/components/header/navItem-header.vue`    | 一级导航按钮选中背景图       |
+| `navItem-iconi.png`        | `src/components/header/navItem-header.vue`    | 一级导航文字前方图标（i=1,2,3…） |
+| `navItem-iconi-active.png` | `src/components/header/navItem-header.vue`    | 一级导航文字前方激活图标（i=1,2,3…） |
+| `secondary-nav-bg.png`              | `src/components/header/navItem-footer.vue`    | 二级导航背景图               |
+| `secondary-navItem-bg.png`          | `src/components/header/navItem-footer.vue`    | 二级导航按钮背景图           |
+| `secondary-navItem-bg-active.png`   | `src/components/header/navItem-footer.vue`    | 二级导航按钮选中背景图       |
+| `secondary-navItem-iconi.png`       | `src/components/header/navItem-footer.vue`    | 二级导航文字前方图标（i=1,2,3…） |
+| `secondary-navItem-iconi-active.png`| `src/components/header/navItem-footer.vue`    | 二级导航文字前方激活图标（i=1,2,3…） |
 | `header-weather.png`       | `src/components/header/setting/weather.vue`   | 顶部天气模块图标             |
 | `header-date.png`          | 顶部日期前方的 icon                           | 顶部年月日模块图标           |
 | `header-time.png`          | 顶部时间前方的 icon                           | 顶部小时分钟秒模块图标       |
@@ -20,12 +29,19 @@
 | `mask.png`                 | `src/layout/index.vue`                        | 遮罩图                       |
 | `leftTool-bg.png`          | `src/components/toolBar/sideBar.vue`          | 左侧工具栏背景图             |
 | `leftTool-bg-active.png`   | `src/components/toolBar/sideBar.vue`          | 左侧工具栏激活背景图         |
+| `leftTool-iconi.png`       | `src/components/toolBar/sideBar.vue`          | 左侧工具栏图标（i=1,2,3…）  |
 | `rightTool-bg.png`         | `src/components/toolBar/sideBar.vue`          | 右侧工具栏背景图             |
 | `rightTool-bg-active.png`  | `src/components/toolBar/sideBar.vue`          | 右侧工具栏激活背景图         |
+| `rightTool-iconi.png`      | `src/components/toolBar/sideBar.vue`          | 右侧工具栏图标（i=1,2,3…） |
 | `headerTool-bg.png`        | `src/components/toolBar/headerTool.vue`       | 头部工具栏背景图             |
 | `headerTool-bg-active.png` | `src/components/toolBar/headerTool.vue`       | 头部工具栏激活背景图         |
+| `headerTool-iconi.png`     | `src/components/toolBar/headerTool.vue`       | 头部工具栏图标（i=1,2,3…） |
 | `footerTool-bg.png`        | `src/components/toolBar/footerTool.vue`       | 底部工具栏背景图             |
 | `footerTool-bg-active.png` | `src/components/toolBar/footerTool.vue`       | 底部工具栏激活背景图         |
+| `footerTool-iconi.png`     | `src/components/toolBar/footerTool.vue`       | 底部工具栏图标（i=1,2,3…） |
+| `left-panel-collapse.png`  | `src/components/sideBarLeft.vue`              | 左侧面板收起按钮图标         |
+| `right-panel-collapse.png` | `src/components/sideBarLeft.vue`              | 右侧面板收起按钮图标         |
+> **导航背景图三级区分**：`nav-bg.png` 为导航整体底图（不区分级别）；`first-nav-bg.png` 为一级导航背景；`secondary-nav-bg.png` 为二级导航背景。`navItem-*` 按钮资源无前缀默认一级，加 `secondary-` 前缀为二级。如需更多级别可扩展 `tertiary-` 等前缀。
 
 ## 3. 样式修正与“防灾难”指南
 - **Body 高度适配铁律（致命点）**：`body` 元素**绝对禁止**设置 `height: 100vh` 或任何固定高度（如 `height: 100%`、`height: 860px` 等）！必须使用 `padding-top` 百分比实现宽高比自适应黑边效果。计算公式：`padding-top = (设计稿高度 ÷ 设计稿宽度) × 100%`。若需适配多种屏幕分辨率，必须通过 `@media (aspect-ratio)` 媒体查询配置多套 `padding-top`（详见第 7 节「Body 宽高比适配规范」）。违反此规则将导致非预设屏幕显示 UI 上下拉伸变形！
@@ -77,11 +93,10 @@
 <img src="@images/layout/header-weather.png" alt="">
 ```
 
-## 5. 强制挂载规则
+## 5. 强制挂载规则.
 - 高度百分比必须直接挂载在 `Box` 的类名上（如 `.box-factory { height: 28%; }`）。
 - 绝对禁止 `.content-left` 或 `.content-right` 出现 `height` 属性。
 - `Box` 的 `delayTime` 必须遵循同侧自上而下递增 100ms 的原则。
-<<<<<<< HEAD
 
 ## 6. Box 类型规范
 
@@ -158,87 +173,3 @@
   <div class="box-main-content"></div>
 </Box>
 ```
-=======
-- 使用任意 `var(--font-size-xx)` 前必须执行“先定义后引用”校验：先查 `main.scss` 变量定义，再写样式引用。
-## 7. Body 宽高比适配规范（防拉伸铁律）
-
-### 7.1 核心原则
-- **禁止项**：`body` 上**绝对不允许**出现 `height: 100vh`、`height: 100%` 或任何固定高度声明。
-- **必须项**：使用 `padding-top` 百分比撑开 `body` 高度，公式为 `padding-top = (高 ÷ 宽) × 100%`。
-- **适配项**：若存在第二套适配分辨率，必须通过 `@media (aspect-ratio)` 媒体查询配置第二套 `padding-top`。
-
-### 7.2 计算步骤
-1. **主设计稿**：取设计稿原始尺寸 `W1 × H1`，计算 `paddingTop1 = (H1 / W1) × 100`，保留两位小数，单位 `%`。
-2. **适配目标**：取适配目标分辨率 `W2 × H2`，计算 `paddingTop2 = (H2 / W2) × 100`，保留两位小数，单位 `%`。
-3. **媒体查询分界点**：取两套宽高比的中间值作为分界，`breakpoint = ((W1/H1) + (W2/H2)) / 2`，转为整数比 `breakpoint × 1000 / 1000`。
-4. **默认值**：`body` 的默认 `padding-top` 使用主设计稿的值（`paddingTop1`）。
-5. **媒体查询**：
-   - `@media (max-aspect-ratio: breakpoint)` → `padding-top: paddingTop1%`（窄屏/标准屏使用主设计稿比例）
-   - `@media (min-aspect-ratio: breakpoint)` → `padding-top: paddingTop2%`（宽屏使用适配目标比例）
-
-### 7.3 CSS 参考代码
-以设计稿 `2296×774` + 适配目标 `2898×860` 为例：
-```scss
-html {
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 100vw;
-  height: 100vh;
-  font-size: 0.7vw;
-  overflow: hidden;
-}
-
-body {
-  margin: 0;
-  width: 100%;
-  /* padding-top = 774 / 2296 × 100 = 33.71% */
-  padding-top: 33.71%;
-  background-color: transparent;
-  position: relative;
-  font-family: var(--font-family-primary-Light);
-  overflow: hidden;
-  /* ⛔ 绝对禁止出现 height: 100vh 或任何固定高度！ */
-}
-
-/* 适配 2296×774（宽高比 ≈ 2.97:1）— 窄屏 */
-@media (max-aspect-ratio: 3148/1000) {
-  body {
-    padding-top: 33.71%;
-  }
-}
-
-/* 适配 2898×860（宽高比 ≈ 3.37:1）— 宽屏 */
-@media (min-aspect-ratio: 3148/1000) {
-  body {
-    padding-top: 29.7%;
-  }
-}
-
-#app {
-  position: absolute;
-  background-color: transparent;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-```
-
-### 7.4 分界点计算示例
-```
-设计稿: 2296×774 → 宽高比 = 2296/774 ≈ 2.966
-适配屏: 2898×860 → 宽高比 = 2898/860 ≈ 3.370
-分界点 = (2.966 + 3.370) / 2 ≈ 3.168 → 取整为 3148/1000
-```
-
-### 7.5 自查清单（代码生成后必须逐项校验）
-- [ ] `body` 上**没有** `height: 100vh` 或任何固定高度
-- [ ] `body` 上**有** `padding-top: XX%`（值 = 设计稿高/宽 × 100）
-- [ ] 存在两条 `@media (aspect-ratio)` 媒体查询，分别覆盖窄屏和宽屏的 `padding-top`
-- [ ] `#app` 使用 `position: absolute; top: 0; left: 0; width: 100%; height: 100%` 填满 body
-- [ ] `html` 上有 `height: 100vh`（html 可以，body 不可以）>>>>>>> e002d9d465afdfa2d0ceefdbbd38559563cd8377
