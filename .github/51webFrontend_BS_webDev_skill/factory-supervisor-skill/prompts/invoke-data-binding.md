@@ -1,6 +1,8 @@
 # Prompt: 调用数据接入厂的标准措辞
 
 > 总监调用 data-bindingapi-skill 时使用的标准注入提示。
+>
+> 📜 **交付报告格式唯一权威源**：[`../contracts/delivery-schema.md`](../contracts/delivery-schema.md) §2 数据厂报告。下文处示例仅供快查，字段以 schema 为准。
 
 ---
 
@@ -68,3 +70,4 @@
 ## 阶段二被阻断的注入（key 巡检失败 → 不调用，先回 BS）
 > 若 bs-to-data-key-check 失败，**总监不会**发起阶段二调用。
 > 改而调用 BS 修补模式（见 `invoke-bs.md`），修复完成后再重跑巡检 → 重新发起阶段二。
+> 给用户的可读指引详见 [`../checks/bs-to-data-key-check.md`](../checks/bs-to-data-key-check.md) "🆘 用户操作指南"段。

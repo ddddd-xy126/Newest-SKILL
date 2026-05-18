@@ -85,32 +85,41 @@ html {
 
   width: 100vw;
   height: 100vh;
-  font-size: 0.7vw;
+  font-size: 0.833vw;
   overflow: hidden;
 }
 
 body {
   margin: 0;
   width: 100%;
-  padding-top: 33.71%;
+  padding-top: 56.25%;
   background-color: transparent;
   position: relative;
-  font-family: var(--font-family-primary-Light);
+  font-family: var(--font-family-OPPOSans-Regular);
   overflow: hidden;
 }
 
-/* 适配 2296*774（宽高比 ≈ 2.97:1） */
-@media (max-aspect-ratio: 3148/1000) {
+/* 适配 1920×1080（宽高比 ≈ 1.78:1） */
+@media (max-aspect-ratio: 1778/1000) {
   body {
-    padding-top: 33.71%;
+    padding-top: 56.25%;
   }
 }
 
-/* 适配 2898*860（宽高比 ≈ 3.37:1） */
-@media (min-aspect-ratio: 3148/1000) {
+@media (min-aspect-ratio: 1778/1000) {
   body {
-    padding-top: 29.7%;
+    padding-top: 56.25%;
   }
+}
+
+/* Box 背景图 - 左右侧分别使用不同背景 */
+.content-left .box-main {
+  background-image: url("~@images/layout/box-bg-left.png");
+  background-size: 100% 100%;
+}
+.content-right .box-main {
+  background-image: url("~@images/layout/box-bg-right.png");
+  background-size: 100% 100%;
 }
 
 #app {
@@ -123,11 +132,11 @@ body {
 }
 
 h1 {
-  font-size: pxToRem(20);
-  color: var(--color-primary);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  font-family: var(--font-family-primary-Regular);
+  font-size: pxToRem(18);
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-family: var(--font-family-Alimama-ShuHeiTi-Bold);
 
   &.logo {
     font-family: var(--font-family-primary-Medium);
@@ -155,8 +164,9 @@ h3 {
 }
 
 span {
-  font-size: pxToRem(22);
+  font-size: pxToRem(14);
   color: var(--color-primary);
+  font-family: var(--font-family-OPPOSans-Medium);
 
   &.shadow {
     text-shadow: var(--text-shadow-blue);

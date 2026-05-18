@@ -28,10 +28,15 @@
 ```
 
 ## 必填前置物料（批量场景必须 4 份齐全）
-1. **组件封装清单 Excel**：标准表头见 `BS-base-dev-skill/brains/sub-brain-b-component.md`
-2. **面板挂载清单 Excel**：标准表头见 `BS-base-dev-skill/brains/sub-brain-c-assemble.md`
-3. **接口文档 Markdown**：格式见 `data-bindingapi-skill/references/api-example.md`
-4. **页面-API 映射表 Markdown**：格式见 `data-bindingapi-skill/references/page-api-mapping-example.md`
+1. **组件封装清单 Excel**：标准表头见 [`BS-base-dev-skill/brains/sub-brain-b-component.md`](../../BS-base-dev-skill/brains/sub-brain-b-component.md) 「批量模板对齐规则」段（专用于批量模式 · 不要与标准模式 `sub-brain-b-panel.md` 混淆）
+2. **面板挂载清单 Excel**：标准表头见 [`BS-base-dev-skill/brains/sub-brain-c-assemble.md`](../../BS-base-dev-skill/brains/sub-brain-c-assemble.md) 「批量需求输入规范」段
+3. **接口文档 Markdown**：格式见 [`data-bindingapi-skill/references/api-example.md`](../../data-bindingapi-skill/references/api-example.md)
+4. **页面-API 映射表 Markdown**：格式见 [`data-bindingapi-skill/references/page-api-mapping-example.md`](../../data-bindingapi-skill/references/page-api-mapping-example.md)
+
+> 📋 **统一速查 / 示例行**：[`BS-base-dev-skill/templates/BATCH-MATERIALS.md`](../../BS-base-dev-skill/templates/BATCH-MATERIALS.md) 集中给出 4 份物料的完整列定义、示例行与跨清单一致性铁律，作为唯一权威源；本 playbook 与各子脑文件中的描述若出现冲突，**以 BATCH-MATERIALS.md 为准**。
+
+> ℹ️ **为什么批量模式不调用 `sub-brain-b-panel.md`？**
+> 标准模式的 `b-panel` 是「封装+挂载合并执行」的一体化流程，适合单页/小批量、强交互的设计图驱动场景；批量模式必须把封装和挂载拆开，才能精准消费两份独立 Excel、严格控制 token 和断点续传节奏，因此固定走 `b-component` → `c-assemble` 两阶段。
 
 ## 物料校验铁律
 - 组件清单的 `component_key` 必须能在挂载清单中找到对应行

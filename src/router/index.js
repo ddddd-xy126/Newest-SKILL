@@ -3,14 +3,13 @@
  *
  * 路由结构:
  * / (根路径)
- * ├── /page_1 (第一个页面模块)
- * │   ├── /page_1/1 (子页面1)
- * │   ├── /page_1/2 (子页面2)
- * │   ├── /page_1/3 (子页面3)
- * │   └── /page_1/4 (子页面4)
- * ├── /page_2 (第二个页面模块)
- * ├── /page_3 (第三个页面模块)
- * └── /page_4 (第四个页面模块)
+ * ├── /page_1 (景区态势) → /page_1/1~5
+ * ├── /page_2 (客流管控) → /page_2/1~2
+ * ├── /page_3 (生态保育) → /page_3/1~2
+ * ├── /page_4 (森林防火) → /page_4/1~2
+ * ├── /page_5 (周界安防) → /page_5/1~2
+ * ├── /page_6 (协同调度) → /page_6/1~2
+ * └── /page_7 (应急救援) → /page_7/1~2
  *
  * @author Hua<51world>
  */
@@ -40,106 +39,90 @@ const routes = [
     component: () => import("@/views/index.vue"),
     redirect: "/page_1",
     meta: {
-      title: "数据可视化大屏",
-      requiresAuth: false, // 是否需要认证
-      keepAlive: true, // 是否缓存组件
-      showInMenu: false, // 是否在菜单中显示
+      title: "稻城亚丁全域智能运营中心",
+      requiresAuth: false,
+      keepAlive: true,
+      showInMenu: false,
     },
     children: [
+      // ========== 景区态势 ==========
       {
         path: "/page_1",
         component: () => import("@/views/page_1/index.vue"),
         redirect: "/page_1/1",
-        meta: {
-          title: "综合态势",
-          requiresAuth: false,
-          keepAlive: true,
-          showInMenu: true,
-        },
+        meta: { title: "景区态势", requiresAuth: false, keepAlive: true, showInMenu: true },
         children: [
-          {
-            path: "1",
-            name: "page_1_1",
-            component: () => import("@/views/page_1/page_1_1/index.vue"),
-            meta: {
-              title: "综合态势",
-              requiresAuth: false,
-              keepAlive: true,
-              showInMenu: true,
-            },
-          },
+          { path: "1", name: "page_1_1", component: () => import("@/views/page_1/page_1_1/index.vue"), meta: { title: "总览", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_1_2", component: () => import("@/views/page_1/page_1_2/index.vue"), meta: { title: "接驳运力", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "3", name: "page_1_3", component: () => import("@/views/page_1/page_1_3/index.vue"), meta: { title: "路网态势", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "4", name: "page_1_4", component: () => import("@/views/page_1/page_1_4/index.vue"), meta: { title: "智慧停车", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "5", name: "page_1_5", component: () => import("@/views/page_1/page_1_5/index.vue"), meta: { title: "智慧公厕", requiresAuth: false, keepAlive: true, showInMenu: true } },
         ],
       },
+      // ========== 客流管控 ==========
       {
         path: "/page_2",
         component: () => import("@/views/page_2/index.vue"),
         redirect: "/page_2/1",
-        meta: {
-          title: "综合安防",
-          requiresAuth: false,
-          keepAlive: true,
-          showInMenu: true,
-        },
+        meta: { title: "客流管控", requiresAuth: false, keepAlive: true, showInMenu: true },
         children: [
-          {
-            path: "1",
-            name: "page_2_1",
-            component: () => import("@/views/page_2/page_2_1/index.vue"),
-            meta: {
-              title: "综合安防",
-              requiresAuth: false,
-              keepAlive: true,
-              showInMenu: true,
-            },
-          },
+          { path: "1", name: "page_2_1", component: () => import("@/views/page_2/page_2_1/index.vue"), meta: { title: "客流感知", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_2_2", component: () => import("@/views/page_2/page_2_2/index.vue"), meta: { title: "孪生仿真", requiresAuth: false, keepAlive: true, showInMenu: true } },
         ],
       },
+      // ========== 生态保育 ==========
       {
         path: "/page_3",
         component: () => import("@/views/page_3/index.vue"),
         redirect: "/page_3/1",
-        meta: {
-          title: "便捷通行",
-          requiresAuth: false,
-          keepAlive: true,
-          showInMenu: true,
-        },
+        meta: { title: "生态保育", requiresAuth: false, keepAlive: true, showInMenu: true },
         children: [
-          {
-            path: "1",
-            name: "page_3_1",
-            component: () => import("@/views/page_3/page_3_1/index.vue"),
-            meta: {
-              title: "便捷通行",
-              requiresAuth: false,
-              keepAlive: true,
-              showInMenu: true,
-            },
-          },
+          { path: "1", name: "page_3_1", component: () => import("@/views/page_3/page_3_1/index.vue"), meta: { title: "珍惜物种", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_3_2", component: () => import("@/views/page_3/page_3_2/index.vue"), meta: { title: "气象预警", requiresAuth: false, keepAlive: true, showInMenu: true } },
         ],
       },
+      // ========== 森林防火 ==========
       {
         path: "/page_4",
         component: () => import("@/views/page_4/index.vue"),
         redirect: "/page_4/1",
-        meta: {
-          title: "能效管理",
-          requiresAuth: false,
-          keepAlive: true,
-          showInMenu: true,
-        },
+        meta: { title: "森林防火", requiresAuth: false, keepAlive: true, showInMenu: true },
         children: [
-          {
-            path: "1",
-            name: "page_4_1",
-            component: () => import("@/views/page_4/page_4_1/index.vue"),
-            meta: {
-              title: "能效管理",
-              requiresAuth: false,
-              keepAlive: true,
-              showInMenu: true,
-            },
-          },
+          { path: "1", name: "page_4_1", component: () => import("@/views/page_4/page_4_1/index.vue"), meta: { title: "物联感知", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_4_2", component: () => import("@/views/page_4/page_4_2/index.vue"), meta: { title: "火险评估", requiresAuth: false, keepAlive: true, showInMenu: true } },
+        ],
+      },
+      // ========== 周界安防 ==========
+      {
+        path: "/page_5",
+        component: () => import("@/views/page_5/index.vue"),
+        redirect: "/page_5/1",
+        meta: { title: "周界安防", requiresAuth: false, keepAlive: true, showInMenu: true },
+        children: [
+          { path: "1", name: "page_5_1", component: () => import("@/views/page_5/page_5_1/index.vue"), meta: { title: "防区总览", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_5_2", component: () => import("@/views/page_5/page_5_2/index.vue"), meta: { title: "区里调度", requiresAuth: false, keepAlive: true, showInMenu: true } },
+        ],
+      },
+      // ========== 协同调度 ==========
+      {
+        path: "/page_6",
+        component: () => import("@/views/page_6/index.vue"),
+        redirect: "/page_6/1",
+        meta: { title: "协同调度", requiresAuth: false, keepAlive: true, showInMenu: true },
+        children: [
+          { path: "1", name: "page_6_1", component: () => import("@/views/page_6/page_6_1/index.vue"), meta: { title: "待办事件池", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_6_2", component: () => import("@/views/page_6/page_6_2/index.vue"), meta: { title: "网络巡更", requiresAuth: false, keepAlive: true, showInMenu: true } },
+        ],
+      },
+      // ========== 应急救援 ==========
+      {
+        path: "/page_7",
+        component: () => import("@/views/page_7/index.vue"),
+        redirect: "/page_7/1",
+        meta: { title: "应急救援", requiresAuth: false, keepAlive: true, showInMenu: true },
+        children: [
+          { path: "1", name: "page_7_1", component: () => import("@/views/page_7/page_7_1/index.vue"), meta: { title: "报警态势", requiresAuth: false, keepAlive: true, showInMenu: true } },
+          { path: "2", name: "page_7_2", component: () => import("@/views/page_7/page_7_2/index.vue"), meta: { title: "基建分布", requiresAuth: false, keepAlive: true, showInMenu: true } },
         ],
       },
     ],

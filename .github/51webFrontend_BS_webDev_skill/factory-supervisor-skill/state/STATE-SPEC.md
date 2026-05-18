@@ -337,3 +337,66 @@ phaseTwo.not-started ──[预检：bs-to-data-key-check]──►
    - "检测到状态机损坏，请确认当前任务进度：A/B/C 厂分别走到哪一步？"
 3. 基于用户回答 + 实际项目文件扫描重建 state
 4. 重建后追加一条 `history.event = "state-rebuilt"`
+
+---
+
+## 12. 字段写入责任表（避免漏字段 / 错主体）
+
+> **唯一原则**：每个字段只能由其唯一的"责任主体"写入；下游厂只回报 JSON（遵循 [`../contracts/delivery-schema.md`](../contracts/delivery-schema.md)），由 **supervisor 落盘**到 state。
+
+### 12.1 全局字段
+| 字段 | 责任主体 | 触发时机 |
+|---|---|---|
+| `version` | supervisor | 创建文件时一次写入；schema 升级时由"修复模式"迁移 |
+| `projectPath` | supervisor | 协议 0 拿到工程路径后立即写入 |
+| `createdAt` | supervisor | 文件首次创建 |
+| `updatedAt` | supervisor | **每次** 写盘前更新 |
+| `currentTaskId` | supervisor | 协议 2 创建/切换任务时 |
+| `globalEnv.*` | supervisor | 协议 1 环境预检后整体覆写；后续若 `mcp` 状态变化由 WDP 阶段-1 反馈触发 |
+
+### 12.2 BS 厂字段（factories.bs）
+| 字段 | 责任主体 | 触发时机 / 数据来源 |
+|---|---|---|
+| `status` / `currentStep` | supervisor | 收到 BS 交付报告后，依据 `phase` 推导 |
+| `mode` | supervisor | 协议 2 任务图确认时定值（`standard` / `batch`） |
+| `step1_layout.rounds.Rx.status` | supervisor | BS 报告 `phase=step1` + `currentRound=Rx` 用户确认进入下一轮时 |
+| `step1_layout.rounds.Rx.completedAt` | supervisor | 同上，用 BS 报告的 `finishedAt` |
+| `step2_components.totalCount` | supervisor | 批量模式：协议 2 物料校验时从 Excel 行数填入；标准模式：BS 首次交付 step2 报告时 |
+| `step2_components.completedCount` | supervisor | 每个 BS step2 报告 `components[].length` 累加 |
+| `step3_mount.totalPanels` / `completedPanels` | supervisor | 同 step2 同理 |
+| `artifacts` | supervisor | 合并 BS 报告 `artifacts` 字段（去重） |
+| `lastSelfCheckAt` / `selfCheckPassed` | supervisor | 直接来自 BS 报告同名字段 |
+
+### 12.3 WDP 厂字段（factories.wdp）
+| 字段 | 责任主体 | 触发时机 / 数据来源 |
+|---|---|---|
+| `status` / `phase` | supervisor | 来自 WDP 报告 `phase` + `status` |
+| `mcpReady` | supervisor | WDP 报告 `phase=phase-1` 且 `selfCheckPassed=true` 时设 true |
+| `currentRequirement` | supervisor | 任务图中"当前活跃 WDP requirement" |
+| `demoArtifact` | supervisor | 来自 WDP 报告（phaseA） `demoArtifact` |
+| `mixinFile` | supervisor | 来自 WDP 报告（phaseB） `mixinFile` |
+| `mandatoryCheckpoints` | supervisor | 直接复制 WDP 报告 `mandatoryCheckpoints[]`，不要拆分 |
+| `lastUpdatedAt` | supervisor | 每次 WDP 报告写入时刷新 |
+
+### 12.4 数据厂字段（factories.dataBinding）
+| 字段 | 责任主体 | 触发时机 / 数据来源 |
+|---|---|---|
+| `status` | supervisor | 综合 phaseOne/phaseTwo 状态 |
+| `phaseOne.*` | supervisor | 来自数据厂 phaseOne 报告（`apiFilePath` / `functionsCount`） |
+| `phaseTwo.totalBindings` / `completedBindings` | supervisor | 来自数据厂 phaseTwo 报告 `bindings[].length` 与累计 |
+| `phaseTwo.keyAudit` | supervisor | **由总监自己跑** `bs-to-data-key-check` 巡检产出，不接受数据厂代写 |
+| `phaseTwo.reason` | supervisor | 当 `status=blocked` 时，从数据厂报告 `blockers[0].message` 复制 |
+
+### 12.5 跨切面字段
+| 字段 | 责任主体 | 备注 |
+|---|---|---|
+| `pages[].components[]` | supervisor | 由 BS 报告 `components[]` 合并；`apiFunction` / `apiBound` 由数据厂 phaseTwo 报告补充 |
+| `checkpoints[]` | supervisor | 巡检完成后追加（不允许厂自行写入） |
+| `blockers[]` | supervisor | 任何来源的阻断都通过 supervisor 创建/解决；厂只负责在交付报告 `blockers[]` 中说明 |
+| `history[]` | supervisor | 任何状态变化必须同步追加事件，违反者视为协议 7 违规 |
+
+### 12.6 厂端纪律（防越权）
+- ✅ 厂只产出 [`contracts/delivery-schema.md`](../contracts/delivery-schema.md) 定义的 JSON 报告。
+- ❌ 厂**严禁**直接读写 `.skill-state.json`（避免并发写、字段格式漂移、时序错乱）。
+- ✅ 厂内部若需要持久化（如批量模式断点），应使用厂自己的工作目录 / 临时文件，不要污染状态机。
+

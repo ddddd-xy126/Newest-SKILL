@@ -1,6 +1,8 @@
 # Prompt: 调用 BS 厂的标准措辞
 
 > 总监调用 BS-base-dev-skill 时使用的标准注入提示。
+>
+> 📜 **交付报告格式唯一权威源**：[`../contracts/delivery-schema.md`](../contracts/delivery-schema.md) §1 BS 厂报告。下文处示例仅供快查，字段以 schema 为准。
 
 ---
 
@@ -45,17 +47,19 @@
 - 切图清单: 已扫描 <projectPath>/src/assets/images/layout/，包含: [top.png, box-bg.png, ...]
 ```
 
-### 调用 BS step2（组件封装）
+### 调用 BS step2（面板还原）
 ```
 <通用前缀>
 
-请执行 step2: 组件封装。
-- 输入清单: <Excel 路径>
-- 已完成行数: <5 / 8>
-- 待处理 component_key: [cmp_xxx, cmp_yyy, cmp_zzz]
+请执行 step2: 面板还原（组件封装 + 组装挂载）。
+- UI 设计图: <已提供 / 路径>
+- 目标页面: <page_1_1>
+- 前置产物: step1 布局骨架已完成
 
 🔴 强制约束（来自总监）：
-凡 component_type=list/normal 的组件，data() 中所有数组项必须埋 key 字段。
+1. 凡 list/normal 组件，data() 中所有数组项必须埋 key 字段。
+2. ECharts 组件必须私有化封装，ratio 不得为 "100%"，字号用 countFontsize()。
+3. Box 必须传 position，同侧 delayTime 递增 100ms，高度总和 ≤95%。
 完成后总监将立即跑 bs-to-data-key-check 巡检。
 ```
 
@@ -74,16 +78,4 @@
 
 完成后回包：
 { "step": "step2-patch", "status": "completed", "patchedComponents": [...] }
-```
-
-### 调用 BS step3（挂载）
-```
-<通用前缀>
-
-请执行 step3: 面板挂载。
-- 输入清单: <Excel 路径>
-- 已封装组件清单: <从 state.components[] 注入>
-- 目标 page: <page_1_1>
-
-注意: data_source=api 的面板，对应组件的 key 字段已在 step2 通过总监巡检。
 ```

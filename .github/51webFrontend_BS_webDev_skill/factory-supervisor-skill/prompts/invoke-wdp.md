@@ -1,6 +1,8 @@
 # Prompt: 调用 WDP 厂的标准措辞
 
 > 总监调用 wdp-secondary-dev-skill 时使用的标准注入提示。
+>
+> 📜 **交付报告格式唯一权威源**：[`../contracts/delivery-schema.md`](../contracts/delivery-schema.md) §3 WDP 厂报告。下文处示例仅供快查，字段以 schema 为准。
 
 ---
 

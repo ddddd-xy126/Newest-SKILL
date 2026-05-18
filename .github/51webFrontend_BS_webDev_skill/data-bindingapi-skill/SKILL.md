@@ -17,6 +17,7 @@ description: 两阶段数据接入技能。阶段一：解析用户提供的 Mar
 - ✅ 产物为 vue2 选项式 API、`@/utils/request` axios 封装、`src/types/` ECharts 工厂函数
 - ✅ **凡 `list` / `normal` 类组件，`data()` 中数组项必须已埋好英文小驼峰 `key` 字段**（详见 BS 厂 `knowledge/component-standards.md` 第 0 节）
 - ✅ 所有展示字段已带兜底值（`"--"` / `0` / `[]`）
+- ✅ BS 厂 step2（面板还原）完成后，总监会立即跑 `bs-to-data-key-check` 巡检
 - ❌ 若上游缺 `key`，本 skill 阶段二 `key` 阻断点会暂停流程，要求用户回 BS 厂补齐
 
 ### 上游 = `wdp-secondary-dev-skill`（3D 场景厂）
@@ -26,6 +27,9 @@ description: 两阶段数据接入技能。阶段一：解析用户提供的 Mar
 
 ### 下游 = 项目可上线
 - 本 skill 阶段二完成后即交付，不再做样式调整、不再改 props 接口
+
+### 🔗 向总监回报的交付契约
+本 skill 每个阶段（phaseOne / phaseTwo）完成后，必须在最后一段输出标准化交付报告 JSON，**格式严格以** [`factory-supervisor-skill/contracts/delivery-schema.md`](../factory-supervisor-skill/contracts/delivery-schema.md) §2 数据厂报告为准（`factory="dataBinding"`）。key 缺失被阻断时必须返回 `status="blocked"` + `blockers[]`（错误码命名空间 `D-xxx`）。
 
 ---
 

@@ -1,20 +1,13 @@
 <template>
   <transition :name="`slide-${position}`">
-    <div
-      class="box"
-      v-if="isShow"
-      :style="{ 'margin-bottom': footerBoxStyle['margin-bottom'] || '3%' }"
-    >
+    <div class="box" v-if="isShow" :style="{ 'margin-bottom': footerBoxStyle['margin-bottom'] || '3%' }">
       <!-- minimal: 无头部 -->
       <template v-if="type !== 'minimal'">
         <!-- default: 完全 slot 控制（向后兼容） -->
         <div class="header-container" v-if="type === 'default'">
           <div class="box-header-left">
             <div class="box-sub-header">
-              <header
-                class="box-header"
-                :style="{ width: footerBoxStyle['width'] || '65%' }"
-              >
+              <header class="box-header" :style="{ width: footerBoxStyle['width'] || '65%' }">
                 <slot name="header"></slot>
               </header>
               <header class="box-header-en">
@@ -126,13 +119,16 @@ export default {
 
   .header-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
-    width: 100%;
+    z-index: 1;
+    width: pxToRem(287);
+    aspect-ratio: 287/36;
     margin: 0;
-    height: 3.125rem;
-    padding-bottom: 0.2rem;
+    margin-bottom: pxToRem(-15);
+    background-image: url("~@images/layout/box-header.png");
+    background-size: 100% 100%;
   }
 }
 
@@ -140,8 +136,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 0.5rem;
-  padding-left: 10%;
+  margin-left: pxToRem(12);
 
   img {
     width: 1.75rem;
@@ -163,10 +158,11 @@ export default {
 }
 
 .box-title {
-  color: #d9f3ff;
-  font-family: var(--font-family-primary-Bold);
-  font-size: var(--font-size-18);
+  color: #ffffff;
+  font-family: var(--font-family-Alimama-ShuHeiTi-Bold);
+  font-size: pxToRem(18);
   white-space: nowrap;
+  letter-spacing: 0.05em;
 }
 
 .box-subtitle {
@@ -190,7 +186,8 @@ export default {
   border: none;
   padding: 1.05rem 1.1rem;
   position: relative;
-  height: calc(100% - 3.125rem);
+  width: 100%;
+  height: calc(100% - 36px);
 
   .box-tag {
     position: absolute;

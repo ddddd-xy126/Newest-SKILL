@@ -14,5 +14,99 @@
     "lastEnvCheckAt": null,
     "notes": []
   },
-  "tasks": []
+  "tasks": [],
+  "_exampleTask_DELETE_ON_INIT": {
+    "_doc": "本对象仅作为 schema 速查与续传演练参考。supervisor 在首次创建 .skill-state.json 时必须把这一整个键删除。任何运行态都不得包含本字段。",
+    "id": "T-20260507-001",
+    "title": "智慧园区大屏（示例）",
+    "playbook": "full-stack-2d-3d",
+    "status": "in-progress",
+    "createdAt": "2026-05-07T10:00:00+08:00",
+    "updatedAt": "2026-05-07T11:30:00+08:00",
+    "pages": [
+      {
+        "pageKey": "page_1_1",
+        "title": "智慧生态总览",
+        "filePath": "src/views/page_1/page_1_1/index.vue",
+        "factories": {
+          "bs": {
+            "status": "in-progress",
+            "currentStep": "step2",
+            "mode": "standard",
+            "step1_layout": {
+              "status": "completed",
+              "currentRound": null,
+              "rounds": {
+                "R1": { "status": "completed", "completedAt": "2026-05-07T10:10:00+08:00" },
+                "R2": { "status": "completed", "completedAt": "2026-05-07T10:20:00+08:00" },
+                "R3": { "status": "completed", "completedAt": "2026-05-07T10:30:00+08:00" },
+                "R4": { "status": "completed", "completedAt": "2026-05-07T10:40:00+08:00" }
+              }
+            },
+            "step2_components": {
+              "status": "in-progress",
+              "totalCount": 8,
+              "completedCount": 5,
+              "excelPath": null
+            },
+            "step3_mount": {
+              "status": "not-started",
+              "totalPanels": 0,
+              "completedPanels": 0,
+              "excelPath": null
+            },
+            "artifacts": [
+              "src/views/page_1/page_1_1/index.vue"
+            ],
+            "lastSelfCheckAt": "2026-05-07T11:00:00+08:00",
+            "selfCheckPassed": true
+          },
+          "wdp": {
+            "status": "not-started",
+            "phase": null,
+            "mcpReady": false,
+            "currentRequirement": null,
+            "demoArtifact": null,
+            "mixinFile": null,
+            "mandatoryCheckpoints": [],
+            "lastUpdatedAt": null
+          },
+          "dataBinding": {
+            "status": "not-started",
+            "phaseOne": {
+              "status": "not-started",
+              "apiDocPath": null,
+              "apiFilePath": null,
+              "functionsCount": 0,
+              "completedAt": null
+            },
+            "phaseTwo": {
+              "status": "not-started",
+              "reason": null,
+              "mappingDocPath": null,
+              "totalBindings": 0,
+              "completedBindings": 0,
+              "keyAudit": {
+                "passed": null,
+                "missingArrays": [],
+                "ranAt": null
+              }
+            }
+          }
+        },
+        "components": []
+      }
+    ],
+    "checkpoints": [],
+    "blockers": [],
+    "history": [
+      {
+        "ts": "2026-05-07T10:00:00+08:00",
+        "actor": "supervisor",
+        "event": "task-created",
+        "detail": { "taskId": "T-20260507-001", "playbook": "full-stack-2d-3d" }
+      }
+    ]
+  }
 }
+

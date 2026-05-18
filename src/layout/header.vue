@@ -1,84 +1,56 @@
 <template>
   <div class="header">
-    <!-- 左侧：Logo/标题 -->
-    <div class="header-left">
-      <h1 class="logo">监狱管理局数字化智慧运维平台</h1>
-    </div>
-
-    <!-- 中部：路由导航 -->
-    <div class="header-nav">
-      <NavItem
-        v-for="item in navList"
-        :key="item.id"
-        :item="item"
-        @jumpNav="handleNavClick"
-      />
-    </div>
-
-    <!-- 右侧：功能按钮区 -->
+    <!-- 右侧功能区：日期/时间/天气/PM2.5/设置 -->
     <div class="header-right">
-      <div
-        v-for="btn in rightBtns"
-        :key="btn.id"
-        class="right-btn"
-        :class="{ active: btn.isActive }"
-        @click="handleRightBtnClick(btn)"
-      >
-        <img
-          class="right-btn-bg"
-          :src="btn.isActive ? activeImg : nomalImg"
-          alt=""
-        />
-        <span class="right-btn-text">{{ btn.name }}</span>
+      <div class="header-right-info">
+        <span class="date-text">{{ formattedDate[0] }}</span>
+        <span class="separator">|</span>
+        <span class="time-text">{{ formattedDate[1] && formattedDate[1].substring(0, 5) }}</span>
+      </div>
+      <div class="header-right-weather">
+        <img src="@images/layout/header-weather.png" alt="" class="weather-icon" />
+        <span class="temperature">13 ℃</span>
+      </div>
+      <span class="divider">|</span>
+      <div class="header-right-pm">
+        <span class="pm-label">PM2.5</span>
+        <span class="pm-value">26</span>
+      </div>
+      <div class="header-right-setting" @click="handleSettingClick">
+        <img src="@images/layout/header-setting.png" alt="" class="setting-icon" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NavItem from "@/components/header/navItem-header.vue";
+import { getCurrentFormattedDateRobust } from "@utils/custom.js";
 
 export default {
   name: "Header",
-  components: {
-    NavItem,
-  },
   data() {
-    return { 
-      navList: [
-        { id: 1, name: "综合态势", path: "/page_1/1", pathPrefix: "/page_1", isActive: false },
-        { id: 2, name: "综合安防", path: "/page_2/1", pathPrefix: "/page_2", isActive: false },
-        { id: 3, name: "便捷通行", path: "/page_3/1", pathPrefix: "/page_3", isActive: false },
-        { id: 4, name: "能效管理", path: "/page_4/1", pathPrefix: "/page_4", isActive: false }, 
-      ],
-      rightBtns: [
-        { id: 1, name: "主页", isActive: true },
-        { id: 2, name: "智能预警大脑", isActive: false },
-        { id: 3, name: "AI数字人", isActive: false },
-      ],
+    return {
+      formattedDate: ["", "", ""],
+      timer: null,
     };
   },
-  watch: {
-    "$route.path": {
-      handler(newPath) {
-        this.navList.forEach((item) => {
-          item.isActive = newPath.startsWith(item.pathPrefix);
-        });
-      },
-      immediate: true,
-    },
+  mounted() {
+    this.updateDate();
+    this.timer = setInterval(this.updateDate, 1000);
   },
   methods: {
-    handleNavClick(item) {
-      if (this.$route.path !== item.path) {
-        this.$router.push(item.path);
-      }
+    updateDate() {
+      this.formattedDate = getCurrentFormattedDateRobust();
     },
-    handleRightBtnClick(btn) {
-      this.rightBtns.forEach((b) => {
-        b.isActive = b.id === btn.id;
-      });
+    handleSettingClick() {
+      // 设置按钮点击事件，R4 细化
     },
+  },
+  beforeDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
   },
 };
 </script>
@@ -87,120 +59,101 @@ export default {
 .header {
   width: 100%;
   height: 100%;
-  position: relative; 
+  position: relative;
+  background-image: url("~@images/layout/top.png");
+  background-size: 100% 100%;
 }
 
-/* 左侧标题 */
-.header-left {
+/* 右侧功能区 */
+.header-right {
   position: absolute;
-  left: 1.1%;
+  right: 1.5%;
   top: 0;
   height: 55%;
   display: flex;
   align-items: center;
+  gap: pxToRem(16);
   min-width: 300px;
 }
 
-.logo {
-  line-height: 1;
-  letter-spacing: 0.05em;
-  font-family: var(--font-family-primary-Bold);
-  font-size: var(--font-size-24);
-  color: #d9f3ff;
-  text-shadow: 0 0 10px rgba(49, 174, 255, 0.6);
-  white-space: nowrap;
+.divider {
+  font-family: var(--font-family-OPPOSans-Medium);
+  font-size: pxToRem(14);
+  color: rgba(255, 255, 255, 0.4);
 }
 
-/* 中部导航 */
-.header-nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 5%;
-  height: 45%;
-  display: flex; 
-  align-items: center;
-  gap: 0.2rem;
-}
-
-/* 右侧按钮区 */
-.header-right {
-  position: absolute;
-  right: 1.1%;
-  top: 0;
-  height: 50%;
+.header-right-info {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-}
+  gap: pxToRem(8);
 
-.right-btn {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 0 0.8rem;
-  height: 70%;
-
-  .right-btn-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-
-  .right-btn-text {
-    position: relative;
-    z-index: 1;
-    color: rgba(192, 220, 231, 0.85);
-    font-family: var(--font-family-primary-Regular);
-    font-size: var(--font-size-12);
+  .date-text {
+    font-family: var(--font-family-OPPOSans-Medium);
+    font-size: pxToRem(14);
+    color: #ffffff;
     white-space: nowrap;
   }
 
-  &.active .right-btn-text {
+  .separator {
+    font-family: var(--font-family-OPPOSans-Medium);
+    font-size: pxToRem(14);
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .time-text {
+    font-family: var(--font-family-OPPOSans-Medium);
+    font-size: pxToRem(14);
     color: #ffffff;
-    font-family: var(--font-family-primary-Bold);
+    white-space: nowrap;
   }
 }
 
-.right-label {
-  color: rgba(192, 220, 231, 0.85);
-  font-family: var(--font-family-primary-Regular);
-  font-size: var(--font-size-12);
-  white-space: nowrap;
-}
-
-.right-lang {
-  color: rgba(192, 220, 231, 0.85);
-  font-family: var(--font-family-primary-Regular);
-  font-size: var(--font-size-10);
-  line-height: 1.2;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.right-icon-btn {
+.header-right-weather {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: pxToRem(4);
+
+  .weather-icon {
+    width: pxToRem(17);
+    height: pxToRem(16);
+  }
+
+  .temperature {
+    font-family: var(--font-family-OPPOSans-Medium);
+    font-size: pxToRem(14);
+    color: #ffffff;
+    white-space: nowrap;
+  }
+}
+
+.header-right-pm {
+  display: flex;
+  align-items: center;
+  gap: pxToRem(4);
+
+  .pm-label {
+    font-family: var(--font-family-OPPOSans-Medium);
+    font-size: pxToRem(14);
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .pm-value {
+    font-family: var(--font-family-OPPOSans-Medium);
+    font-size: pxToRem(14);
+    color: #ffffff;
+    white-space: nowrap;
+  }
+}
+
+.header-right-setting {
+  display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 0.2rem;
 
-  .icon-img {
-    height: 1.2rem;
-    width: auto;
+  .setting-icon {
+    width: pxToRem(20);
+    height: pxToRem(20);
   }
-}
-
-.right-separator {
-  display: inline-block;
-  width: 1px;
-  height: 0.9rem;
-  background: rgba(192, 220, 231, 0.3);
-  margin: 0 0.1rem;
 }
 </style>
