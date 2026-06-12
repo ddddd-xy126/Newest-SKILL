@@ -1,0 +1,14 @@
+// px 转 rem 函数，基准根字号 16px
+// 用法：font-size: pxToRem(28); → 1.75rem
+@function pxToRem($px, $base: 16) {
+  @return ($px / $base) * 1rem;
+}
+
+// WDP 弹窗专用：设计稿 px 转 vw
+// 弹窗中 viewport width = 弹窗像素宽度，1vw = 1% 弹窗宽度
+// 用法：font-size: wPx(14);       → 4.459vw  (基于 314px 设计宽)
+//       font-size: wPx(14, 250);  → 5.6vw    (基于 250px 设计宽)
+//       font-size: wPx(14, 232);  → 6.034vw  (基于 232px 设计宽)
+@function wPx($px, $designWidth: 314) {
+  @return ($px / $designWidth * 100) * 1vw;
+}

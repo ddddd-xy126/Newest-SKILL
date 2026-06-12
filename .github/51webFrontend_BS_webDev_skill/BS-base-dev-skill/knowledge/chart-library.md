@@ -1,172 +1,129 @@
-# ECharts 图表沉淀库速查表
+# 图表资产路由表
 
-快速查询所有可用的图表配置项函数。
+从 UI 设计图的视觉特征定位参考函数。AI 按行号读取对应模板源码，参考实现后根据 UI 适配。
 
----
-
-## 目录
-
-1. [柱状图 Bar](#-柱状图-bar-charts)
-2. [折线图 Line](#-折线图-line-charts)
-3. [饼图 Pie](#-饼图-pie-charts)
-4. [仪表盘 Gauge](#-仪表盘-gauge-charts)
-5. [雷达图 Radar](#-雷达图-radar-charts)
-6. [快速选择指南](#快速选择指南)
+> **资产模板路径**：`.github/skills/BS-base-dev-skill/templates/options/`
 
 ---
 
-## 📊 柱状图 (Bar Charts)
+## 柱状图 Bar
 
-| 名称 | 函数名 | 配置文件 | 特点描述 |
-|------|--------|----------|----------|
-| **通用柱状图** | `generalBarOption` | `bar.js` | 单系列；支持垂直/水平；双色渐变；最大值高亮；柱顶白色短横线；背景条；柱子边框；数值显示；坐标轴控制 |
-| **多柱状图** | `MultiBarOption` | `bar.js` | 多系列分组；图例；每系列独立渐变色；柱顶短横线；背景条；支持垂直/水平 |
-| **堆叠柱状图** | `stackBarOption` | `bar.js` | 水平堆叠；多维度占比；每段渐变色；右侧圆角；hover边框高亮；顶部图例 |
-| **基础柱状图** | `baseBarOption` | `bar.js` | 简洁风格；半透明背景条对比；渐变色填充；柱子边框；支持垂直/水平 |
+### generalBarOption
+- 📍 bar.js L4-L419
+- 📝 高度参数化的通用柱状图，支持方向切换、最大值高亮、背景条等大量开关式配置
+- 🎨 视觉特征：单系列竖直或水平柱子 | 柱体双色渐变(从下到上/从左到右) | 柱顶可能有白色短横线装饰 | 半透明背景条衬底 | 最大值柱子变灰白 | 柱顶数值标签 | 柱子有边框
 
-### 通用柱状图参数速查
+### MultiBarOption
+- 📍 bar.js L420-L716
+- 📝 多系列分组柱状图，每个系列独立渐变色，带图例
+- 🎨 视觉特征：多组柱子并排分组 | 每组颜色不同(各自渐变) | 顶部图例(渐变圆形图标) | 柱顶白色短横线装饰 | 半透明背景条 | 组间有间距
 
-```javascript
-generalBarOption(data, name, unit, orientation, color, yAxisConfig, otherConfig)
+### stackBarOption
+- 📍 bar.js L717-L830
+- 📝 水平堆叠柱状图，多维度占比叠加，右侧圆角
+- 🎨 视觉特征：水平方向堆叠条形 | 多色段叠加(每段独立渐变从左到右) | 右端圆角 | 顶部图例(可滚动) | hover时边框高亮 | 半透明渐变产生发光感
+
+---
+
+## 柱线混合图 Bar_Line
+
+### baseLineOption (bar_line)
+- 📍 bar_line.js L15-L117
+- 📝 通用柱状图+折线图混合配置，双Y轴，自动生成legend，外部控制颜色
+- 🎨 视觉特征：柱子+折线共存 | 左轴柱状(渐变填充) | 右轴折线(百分比) | 圆形节点+hover亮圈 | 折线下半透明面积 | 顶部右对齐图例
+
+---
+
+## 折线图 Line
+
+### baseLineOption
+- 📍 line.js L7-L149
+- 📝 基础折线图，单/多系列，自定义节点颜色和线条颜色，多系列时自动显示legend
+- 🎨 视觉特征：折线(非平滑) | 彩色圆点节点(有描边光圈) | 无面积填充 | 纯线条展示 | 虚线网格线
+
+### smoothLineOption
+- 📍 line.js L151-L288
+- 📝 平滑曲线折线图，支持多系列堆叠面积
+- 🎨 视觉特征：平滑曲线(smooth) | 曲线下方有半透明面积填充(渐变到透明) | 多系列时有图例 | 虚线网格线 | 曲线紧贴Y轴起点(boundaryGap:false)
+
+### largeAreaLineOption
+- 📍 line.js L290-L431
+- 📝 峰值面积折线图，支持在数据点间插入随机波动模拟实时监控效果
+- 🎨 视觉特征：平滑曲线+大面积渐变填充 | 线条有发光阴影(shadowBlur) | 数据密集波动(模拟实时) | 暗色坐标轴 | 适合监控/实时场景
+
+---
+
+## 饼图 Pie
+
+### gradientPieOption
+- 📍 pie.js L35-L240
+- 📝 动态渐变饼图，每个扇区根据角度动态计算渐变方向(从实色到透明)，视觉效果最丰富
+- 🎨 视觉特征：环形饼图 | 每个扇区从实色渐变到透明(消散感/发光感) | 可有中心图片 | 可有中心标签(总数+标题) | 可有右侧竖向图例
+
+### pieLeadOption
+- 📍 pie.js L242-L437
+- 📝 带折线引导线的饼图，支持三种图例位置(top/right/bottom)，中心可放背景图和文字
+- 🎨 视觉特征：环形饼图 | 有折线引导线连接扇区到标签 | 中心有文字(总数值+标签) | 中心可有背景装饰图 | 图例位于顶部/右侧/底部 | 标签可显示百分比
+
+### doubleBarOption
+- 📍 pie.js L439-L539
+- 📝 双层同心环饼图，外圈实色，内圈半透明装饰层，右侧图例
+- 🎨 视觉特征：两个不同粗细的同心环 | 外圈实色+内圈70%透明度 | 右侧竖向图例 | 可有中心图片 | 中心偏左布局
+
+### tripleRingOption
+- 📍 pie.js L541-L607
+- 📝 三层同心环饼图，每层只显示一个维度占比，剩余为灰色
+- 🎨 视觉特征：三个不同半径的同心环 | 每环只有一段彩色+剩余灰色(单维度进度感) | 逆时针方向 | 右侧图例(标签+数值+百分比) | 适合三维度占比对比
+
+### gradientLabelPieOption
+- 📍 pie.js L640-L830
+- 📝 渐变标签饼图，环形饼图扇区按角度动态计算渐变方向(透明→实色)，标签带彩色方块装饰和折线引导线
+- 🎨 视觉特征：环形饼图 | 扇区从透明渐变到实色(发光感) | 外侧折线引导线连接标签 | 标签带彩色小方块装饰 | 可有中心背景图/图标 | 标签显示名称+百分比 | padAngle分段间距
+
+---
+
+## 仪表盘 Gauge
+
+### simpleCircleProgressOption
+- 📍 gauge.js L12-L84
+- 📝 极简圆形进度条，单层单色，无装饰
+- 🎨 视觉特征：单层圆环 | 单色进度弧(非渐变) | 中心数值(大号粗体白色) | 背景轨道半透明 | 极简风格无任何装饰
+
+### gaugeOption
+- 📍 gauge.js L86-L304
+- 📝 半圆仪表盘，带刻度、指针、渐变弧和效率标注
+- 🎨 视觉特征：半圆/220°弧形 | 有细长指针 | 外圈虚线刻度 | 内弧渐变色(透明→实色) | 中心有图标 | 两端有文字标注(如"高效/低效") | 半透明圆形底座
+
+### circleProgressOption
+- 📍 gauge.js L306-L416
+- 📝 双层圆形进度环，内层宽轨道+外层细装饰环
+- 🎨 视觉特征：满360°圆环 | 内层较粗进度弧(渐变色) | 外层细装饰环 | 中心大字数值+单位 | 背景轨道为半透明灰色 | 无指针无刻度
+
+---
+
+## 雷达图 Radar
+
+### radarOption
+- 📍 radar.js L15-L95
+- 📝 多系列雷达图，半透明面积填充，节点带发光光圈
+- 🎨 视觉特征：多边形雷达网格 | 半透明彩色面积填充 | 白色小圆点节点+半透明描边光圈 | 分裂区域从深到浅灰紫渐变 | 多系列时颜色区分(青/橙/粉/蓝/紫)
+
+---
+
+# 沉淀规则
+
+当用户指定某个图表配置函数需要沉淀时，执行以下步骤：
+
+1. **读取函数**：`read_file` 读取用户指定的 option 函数代码
+2. **分析归类**：判断属于哪个图表类型（bar/line/pie/gauge/radar/bar_line），若为新类型则新建对应 .js 文件
+3. **追加到资产库**：将函数追加到 `templates/options/{类型}.js` 文件末尾
+4. **更新本表**：在对应分类下新增条目：
+
+```markdown
+### {函数名}
+- 📍 {文件名}.js L{start}-L{end}
+- 📝 {一句话简介}
+- 🎨 视觉特征：{关键词1} | {关键词2} | {关键词3}
 ```
 
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| `data` | Array | `[{name: '分类', value: 数值}, ...]` |
-| `name` | String | 图表名称（tooltip显示） |
-| `unit` | String | 单位文本 |
-| `orientation` | String | `'vertical'` / `'horizontal'` |
-| `color` | Array | `[底部色, 顶部色]` 渐变 |
-| `yAxisConfig` | Object | `{min, max, interval}` |
-| `otherConfig` | Object | 见下表 |
-
-**otherConfig 常用配置：**
-
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `isWhiteLine` | Boolean | false | 柱顶白色短横线 |
-| `barWidth` | Number | 12 | 柱子宽度 |
-| `isPercentage` | Boolean | false | 百分比显示 |
-| `unitPosition` | String | 'right' | 单位位置 |
-| `isShowXLine` | Boolean | true | X轴线显示 |
-| `isShowYLine` | Boolean | true | Y轴线显示 |
-| `isShowXLabel` | Boolean | true | X轴标签显示 |
-| `isShowYLabel` | Boolean | true | Y轴标签显示 |
-| `isMaxColor` | Boolean | true | 最大值特殊颜色 |
-| `maxColor` | Array | 灰白渐变 | 最大值柱子颜色 |
-| `showBarValue` | Boolean | true | 显示柱顶数值 |
-| `isShowBackground` | Boolean | true | 显示背景条 |
-| `barBorderColor` | Boolean/String | false | 柱子边框颜色 |
-
----
-
-## 📈 折线图 (Line Charts)
-
-| 名称 | 函数名 | 配置文件 | 特点描述 |
-|------|--------|----------|----------|
-| **基础折线图** | `baseLineOption` | `line.js` | 基础折线；自定义节点颜色和折线颜色；支持多系列 |
-| **平滑折线图** | `smoothLineOption` | `line.js` | 平滑曲线；支持堆叠区域；渐变填充；多系列图例 |
-| **峰值折线图** | `largeAreaLineOption` | `line.js` | 平滑曲线；随机波动模拟峰值；适合实时数据 |
-
-### 基础折线图参数速查
-
-```javascript
-baseLineOption(xData, yData, colors, unit, isDefault)
-```
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| `xData` | Array | X轴分类数据 |
-| `yData` | Array | `[{name: '系列名', data: [...], color: '#xxx'}, ...]` |
-| `colors` | Array | 颜色数组（可选） |
-| `unit` | String | 单位文本 |
-
----
-
-## 🥧 饼图 (Pie Charts)
-
-| 名称 | 函数名 | 配置文件 | 特点描述 |
-|------|--------|----------|----------|
-| **基本饼图** | `baseBarOption` | `pie.js` | 基础环形饼图；支持中心图片；右侧垂直图例 |
-| **对比饼图** | `diffBarOption` | `pie.js` | 双数据对比环形图；不同宽度和颜色的环 |
-| **双层嵌套饼图** | `doubleBarOption` | `pie.js` | 内外双圈嵌套；不同颜色区分 |
-| **环形图** | `ringPieOption` | `pie.js` | 环形图；中心显示总数值和标签 |
-| **环形图(带图例)** | `setOption` | `pie.js` | 带中心图片和详细图例的环形图 |
-| **动态渐变饼图** | `gradientPieOption` | `pie.js` | 扇区线性渐变色；视觉效果丰富 |
-| **引导线饼图** | `pieLeadOption` | `pie.js` | 丰富引导线和图例配置；支持多种布局 |
-
----
-
-## 📏 仪表盘 (Gauge Charts)
-
-| 名称 | 函数名 | 配置文件 | 特点描述 |
-|------|--------|----------|----------|
-| **仪表盘** | `gaugeOption` | `gauge.js` | 标准仪表盘；中心图标；渐变色轴线；效率/低效标注 |
-| **圆形进度条** | `circleProgressOption` | `gauge.js` | 圆形进度条；外圈装饰环；适合百分比展示 |
-| **简易进度条** | `simpleCircleProgressOption` | `gauge.js` | 简化版圆形进度条；无装饰环；更加简洁 |
-
-### 仪表盘参数速查
-
-```javascript
-gaugeOption(valueOrConfig, maxValue, minvalue, unit, color, isDefault)
-// 或对象形式
-gaugeOption({ value, maxValue, minvalue, unit, color })
-```
-
----
-
-## 📡 雷达图 (Radar Charts)
-
-| 名称 | 函数名 | 配置文件 | 特点描述 |
-|------|--------|----------|----------|
-| **基础雷达图** | `radarOption` | `radar.js` | 基础雷达图；自定义区域透明度和线条颜色 |
-
----
-
-## 🔗 桑基图 (Sankey Charts)
-
-> 待沉淀
-
----
-
-## 快速选择指南
-
-### 按场景选择
-
-| 使用场景 | 推荐图表 | 函数名 |
-|----------|----------|--------|
-| 单系列数据对比 | 通用柱状图 | `generalBarOption` |
-| 多系列分组对比 | 多柱状图 | `MultiBarOption` |
-| 各部分占总量比例 | 堆叠柱状图 | `stackBarOption` |
-| 简单数据展示 | 基础柱状图 | `baseBarOption` |
-| 趋势展示 | 平滑折线图 | `smoothLineOption` |
-| 占比分布 | 环形图 | `ringPieOption` |
-| 进度/完成率 | 圆形进度条 | `circleProgressOption` |
-| 多维度对比 | 雷达图 | `radarOption` |
-
-### 按样式选择
-
-| 样式需求 | 推荐配置 |
-|----------|----------|
-| 垂直柱状图 | `generalBarOption` + `orientation: 'vertical'` |
-| 水平条形图 | `generalBarOption` + `orientation: 'horizontal'` |
-| 带数值标签 | `generalBarOption` + `showBarValue: true` |
-| 百分比显示 | `generalBarOption` + `isPercentage: true` |
-| 最大值高亮 | `generalBarOption` + `isMaxColor: true` |
-| 柱顶装饰线 | `generalBarOption` + `isWhiteLine: true` |
-| 有边框柱子 | `generalBarOption` + `barBorderColor: true` |
-| 背景对比条 | `generalBarOption` + `isShowBackground: true` |
-
----
-
-## 配置文件位置
-
-**项目中：** `src/types/echarts/`
-- bar.js - 柱状图
-- line.js - 折线图
-- pie.js - 饼图
-- gauge.js - 仪表盘
-- radar.js - 雷达图
-
-**Skill 沉淀库：** `assets/options/`
-- 与项目配置保持同步
+> 行号以追加后的实际位置为准。

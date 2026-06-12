@@ -1,4 +1,4 @@
-# Sub-Brain B: 面板还原车间 (Panel Restoration)
+﻿# Sub-Brain B: 面板还原车间 (Panel Restoration)
 
 > 📍 **本子脑的定位（重要）**：
 > - 这是 **标准模式（单页/小批量）下子脑 B 的唯一入口**，覆盖「组件拆分 → 封装 → 组装 → 挂载」全流程。
@@ -6,70 +6,6 @@
 > - 三者关系：本子脑 = 标准模式的「合并版」；component + assemble = 批量模式的「拆分版」。**绝不应被同时调用**。
 
 你现在是**子脑 B（标准模式 · 面板还原合并版）**。你的核心职责是根据用户提供的 UI 设计图/描述，完成面板的**组件拆分、封装、组装、挂载**全流程。
-
----
-
-## 📥 前置动作：知识装载
-
-在开始写任何代码之前，你**必须使用 `read_file` 工具（非搜索工具）读取以下知识库文件**：
-
-> ⚠️ **路径说明**：knowledge 文件位于本 skill 包同级目录 `BS-base-dev-skill/knowledge/`。
-> 部分 IDE 部署时 skill 可能被安装到 `.github/skills/`、`.trae/` 或 `.cursor/` 等隐藏目录下，搜索工具可能默认排除这些目录。
-> 因此**不能完全依赖 `file_search` 或 `grep_search`**，必须直接使用 `read_file` + 完整路径读取；搜索失败不等于文件不存在，必须用 `read_file` 验证。
-> 若下列相对路径读取失败，请逐级回退尝试：先 `BS-base-dev-skill/knowledge/<file>` → 再 `.github/skills/BS-base-dev-skill/knowledge/<file>` → 再 `.trae/.../BS-base-dev-skill/knowledge/<file>`。
-
-**必读（无条件）**：
-1. `BS-base-dev-skill/knowledge/component-standards.md`（组件封装规范）
-2. `BS-base-dev-skill/knowledge/echarts-rules.md`（ECharts 图表尺寸换算与私有化规范）
-
-**按需读取**：
-3. 含图表需求时（必读）：`BS-base-dev-skill/knowledge/chart-library.md`（图表沉淀库速查表，**必须查阅可复用函数后再决定是否手写**）
-4. 含图表需求时（选读）：`BS-base-dev-skill/knowledge/chart-requirements.md`
-5. 面板架构疑问时：`BS-base-dev-skill/knowledge/project-arch.md`（Props 隔离与插槽规范）
-
----
-
-## Phase 0: 项目探索（首次使用或切换项目时）
-
-首次在项目中执行本子脑时，**必须先完成项目探索**，了解项目约定后再进入后续流程。已探索过的项目（`docs/project-context.md` 已存在）无需重复。
-
-### 0.1 — 探索项目结构
-
-依次检查以下内容：
-
-| 探索项 | 检查方式 | 目的 |
-|--------|----------|------|
-| 框架与版本 | 读取 `package.json` | 确认 Vue 2/3、UI 库、构建工具 |
-| 构建配置 | 读取 `vue.config.js` 或 `vite.config.*` | 获取**路径别名**（如 `@`、`@components` 等） |
-| 全局样式 | 查找主 SCSS/CSS 入口文件（通常 `main.scss` 或 `index.scss`） | 发现 CSS 变量（字号 `--font-size-*`、颜色、渐变、字体族等） |
-| 适配方案 | 检查 `html { font-size: ... }` 的值 | 确认 vw-rem / px / 其他方案 |
-| px-to-rem 工具 | 查找 SCSS 函数文件（如 `_functions.scss`、`_mixins.scss`） | 获取函数名（可能是 `px2rem()`、`pxToRem()`、`rem()` 等） |
-| 字号方案 | 从 CSS 变量中提取 `--font-size-*` 的所有值 | 如有字号变量则形成白名单；如无字号变量则使用 px-to-rem 函数直接换算 |
-| Layout 组件 | 读取布局组件（如 `layout/index.vue`） | 了解可用插槽、控制 props、各区域宽度百分比 |
-| 面板容器 | 读取面板包裹组件（如 `box.vue`） | 了解 props（含 `position`、`delayTime`）、插槽、动画机制 |
-| Mixins | 列出 `src/mixins/` 目录内容 | 了解可复用的 mixin（如有） |
-| 已有页面 | 读取一个典型的已实现页面 | 学习项目的组件组合模式和代码风格 |
-| 组件索引 | 读取 `docs/components.md` | 了解已有组件清单（如文件不存在则需创建） |
-
-### 0.2 — 写入项目上下文文件
-
-将探索结果**必须实际创建文件** `docs/project-context.md`，不可仅在对话中输出。后续直接读取此文件即可，无需重复探索。
-
-> ⚠️ **落盘铁律**：Phase 0 的产物是一个物理文件，不是聊天输出。执行完 0.1 后必须立即 `create_file` 写入 `docs/project-context.md`，否则视为 Phase 0 未完成，不得进入后续阶段。
-
-文件内容应包括：
-- 项目屏幕尺寸（设计稿基准宽度，如 1920px）
-- 框架版本、API 风格（Options API / Composition API）
-- 路径别名表
-- 适配方案：根字号值（如 `0.83vw`）、px-to-rem 函数名（如 `px2rem()`）
-- 字号方案：有字号变量时列出白名单；无字号变量时注明"使用 px-to-rem 函数直接换算"
-- Layout 插槽列表及各区域宽度（百分比 + 换算后的 px 值）
-- 面板容器的 props 和插槽（含 `position`、`delayTime`）
-- 组件注册方式
-- ECharts 基础渲染组件路径（如 `src/components/echarts/index.vue`）
-- `countFontsize` 工具函数路径
-
----
 
 ## Phase 1: 接收与分析
 
@@ -84,6 +20,7 @@
 | 图片 + 描述 | 以图片为主，描述为辅 |
 
 同时关注用户是否附带了：
+- **UI设计图**（如果没有读取到UI设计图，并且用户没有明确说明不需要UI图片，必须停止并询问用户UI设计图）
 - **素材图片路径**（icon、不规则图案等，后续直接引用）
 - **组件复用标注**（如"这里用 C010"）
 - **尺寸锚点**（面板宽高、某字号的 px 值等绝对数值）
@@ -94,8 +31,8 @@
 
 AI 从 UI 图中无法获取绝对尺寸，需要锚点来提高还原精度：
 
-- **用户已提供面板尺寸** → 跳过此步骤，直接以用户值为基准
-- **用户未提供** → 从 `docs/project-context.md` 获取面板所在 Layout 插槽的宽度（百分比 + px 值）作为基础锚点
+- **用户已提供面板尺寸** → 直接以用户值为基准，用于后续推算其他尺寸
+- **用户未提供** → 读取 Layout 组件（如 `layout/index.vue`）获取面板所在插槽的宽度百分比，结合设计图整图尺寸推算面板 px 宽度作为基础锚点
 - **补充锚点**：可向用户询问字号等补充锚点；用户无法提供时，以面板宽度 px 值为唯一锚点，通过 UI 图中元素占面板宽度的像素比例推算所有内部尺寸，推算值在方案中标注"推测值"
 
 ### Step 3 — 分析 UI 图（AI 内部过程，不直接输出）
@@ -188,52 +125,43 @@ AI 按以下规则判断每个原子组件是复用还是新建：
 
 ## Phase 3: 实现
 
-### Step 6 — 创建/修改原子组件
+### Step 6 — 读取编码规范
+
+进入实现阶段前，**必须 `read_file` 读取以下规范文件**：
+
+1. `knowledge/component-standards.md` — 组件封装规范（key 字段、命名、Props、样式）
+2. `knowledge/common-components-library.md` — 通用组件资产路由表（视觉特征 → 参考组件定位）
+
+**当方案包含 ECharts/AntV 图表组件时**，还须读取：
+
+3. `knowledge/echarts-rules.md` — 图表封装规范（私有化封装、countFontsize、ratio）
+4. `knowledge/chart-library.md` — 图表资产路由表（视觉特征 → 参考函数定位）
+
+> 路径提示：若相对路径失败，尝试 `.github/skills/BS-base-dev-skill/knowledge/xxx.md`。
+
+### Step 7 — 创建/修改原子组件
 
 **存放位置**：
-- **公有组件**（通用可复用）→ `src/components/{类型目录}/`
+- **公有组件**（通用可复用）→ `src/components/{类型目录}/{组件名称}`
 - **私有组件**（页面专属）→ 对应页面目录下的 `components/`（如 `src/views/pageX/pageX_Y/components/`）
 
-#### 📛 文件命名铁律
+编码严格按 Step 6 读取的 knowledge 文件规范执行。
 
-- 组件文件名统一使用 **PascalCase**（如 `ScoreBall.vue`、`DeviceClassifyChart.vue`）
-- `import` 路径中的文件名**必须与实际文件名大小写完全一致**
-- 创建文件前先确定好名称，import 时直接引用同一名称，**严禁出现大小写不匹配**（如文件叫 `ScoreBall.vue` 但 import 写 `./components/scoreBall`）
-- 违反此规则在 Linux 环境下会直接导致编译失败
+**图表组件落地子流程**（仅当组件为图表类型时执行）：
 
-**编码必须遵循 `docs/project-context.md` 中记录的项目约定**：
-- 使用项目实际的框架版本和 API 风格
-- 字号：有字号变量时使用 CSS 变量；无字号变量时使用 px-to-rem 函数。**禁止**直接写 `px`
-- 间距/尺寸：使用项目的 px-to-rem 函数换算，**禁止**直接写 `px`
-- `border`、`box-shadow` 等装饰性属性可用 `px`
-- 使用项目实际的路径别名引用资源
-- 如项目有可复用的 mixin，优先使用
-- 所有组件必须通过 `props` 接收 `data`，严禁在组件内部写死业务数据
+1. **选型**：从 `chart-library.md` 中按视觉特征匹配最接近的参考函数（可以参考多个）
+2. **读源码**：`read_file` 读取 `templates/options/{文件}` 对应行号范围的函数段
+3. **适配实现**：参考源码实现思路，根据 UI 图的色值、结构、装饰写出实际适配的函数版本
+4. **写入项目**：将函数追加到 `src/types/echarts/{对应文件}.js`（实际函数版本）
+5. **组件调用**：在图表组件中 import 该函数并传入配置项、数据进行使用
 
-#### 🔒 ECharts 图表组件硬约束
+> 资产函数仅作参考，不要求原样复制。AI 根据 UI 设计图自行调整函数体中的色值、间距、装饰、**字号**等细节。
 
-图表类组件必须严格遵守以下规范（详见 `knowledge/echarts-rules.md`）：
-
-1. **私有化包装（强制）**：严禁在页面级文件中直接暴露 Option 函数！必须封装为独立的 `.vue` 组件，使用项目的 ECharts 基础渲染组件（如 `echarts-base`）包裹配置。
-2. **尺寸响应式转换（强制）**：图表内的所有字号、边距必须包裹在 `countFontsize(px)` 函数中，严禁使用原生 rem 或写死固定 px。
-3. **宽高比约束（强制）**：ECharts 组件必须传入明确的 `ratio` 属性（如 `"16/9"`、`"2/1"`、`"630/309"`），**绝对禁止传入 `"100%"`**。
-4. **必传参数校验**：`<Echarts :option="..." :id="..." width="100%" ratio="16/9" />`，其中 `:option`、`width="100%"`、`ratio` 缺一不可。
-
-#### 🔗 下游对接铁律（数组项必埋 `key`）
-
-凡 `list` 或 `normal` 类组件（表格、卡片、列表、进度条等非图表组件），只要 `data()` 里有数组（状态组 / 卡片组 / 网格组 / 三维占比等），**每一项必须携带一个英文小驼峰 `key` 字段**：
-
-- **命名规则**：英文小驼峰（camelCase），仅字母数字，同一数组内唯一、语义化、与 UI 文案解耦
-- **示例**：`{ key: "water", label: "水环境", statusText: "良好" }`
-- **兜底值规范**：所有展示字段必须带默认值 — 字符串 `"--"`、数字 `0`、数组 `[]`
-- **详见** `knowledge/component-standards.md` 第 0 节
-- 本项为下游 `data-bindingapi-skill` 阶段二的硬依赖，缺失会被跨厂巡检阻断
-
-### Step 7 — 创建 Mock 数据
+### Step 8 — 创建 Mock 数据
 
 在页面 `data()` 中定义面板所需的 Mock 数据，从 UI 图中提取文字、数值、标签等。
 
-### Step 8 — 组装面板
+### Step 9 — 组装面板
 
 - 多组件面板：用项目的面板容器组件包裹，内部组合原子组件
 - 单组件面板：直接在面板容器中引用
@@ -244,7 +172,7 @@ AI 按以下规则判断每个原子组件是复用还是新建：
 2. **级联动画推演（强制）**：向同侧（如 `aside-left`）插入多个 Box 时，其 `delayTime` 属性必须严格遵循**自上而下递增 100ms** 的规则（如第一个是 100，第二个是 200，第三个是 300）。
 3. **高度预算控制**：同侧面板高度总和建议 ≤87%（预留间距），最大不超过 95%。
 
-### Step 9 — 挂载到页面
+### Step 10 — 挂载到页面
 
 修改目标页面文件，使用项目 Layout 组件的对应插槽挂载面板。
 
@@ -255,7 +183,7 @@ AI 按以下规则判断每个原子组件是复用还是新建：
 
 **插槽安全与隔离**：严禁在全局的 `index.vue` 中开启 `aside` 属性（这会导致遮挡全局导航），所有的侧边栏显隐控制和工具栏开启，必须下放到具体的业务子页面（如 `page_X/index.vue`）的 Props 中进行管理。
 
-### Step 10 — 更新组件索引
+### Step 11 — 更新组件索引
 
 在 `docs/components.md` 中为每个**新建**的组件添加条目：
 
@@ -267,13 +195,13 @@ AI 按以下规则判断每个原子组件是复用还是新建：
 | 类型 | 图表/表格/卡片/列表/容器/媒体/进度条/... |
 | 特征/信息 | 一句话描述核心功能和特点 |
 
-### Step 11 — 编译检查
+### Step 12 — 编译检查
 
 - 运行 `get_errors` 检查语法错误
 - 确认组件引用路径正确、props 匹配
 - 确认 import 和 components 注册无遗漏
 
-### Step 12 — 向主脑汇报
+### Step 13 — 向主脑汇报
 
 完成全部面板的封装与挂载后，**必须向主脑汇报任务完成**，请主脑进行最终的"代码防腐质检"。
 
@@ -312,8 +240,7 @@ AI 按以下规则判断每个原子组件是复用还是新建：
 
 ## ✅ 交付前检查清单
 
-- [ ] 已读取 `docs/project-context.md` 获取项目约定
-- [ ] CSS 全部使用 rem（或项目的 px-to-rem 函数），ECharts 字号全部使用 `countFontsize`
+- [ ] CSS 全部使用 px-to-rem 函数（如 `pxToRem()`），ECharts 字号全部使用 `countFontsize()`
 - [ ] ECharts 组件已私有化包装，`ratio` 合理且非 `"100%"`，`:option`、`width="100%"`、`ratio` 齐全
 - [ ] Box `position`、`delayTime`、header 结构正确
 - [ ] 同侧高度分配合理（≤87% 建议 / ≤95% 硬上限），无溢出风险
