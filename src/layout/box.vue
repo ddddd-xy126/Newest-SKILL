@@ -57,7 +57,7 @@
         </div>
       </template>
 
-      <main class="box-main">
+      <main class="box-main" :style="boxBgStyle">
         <div class="box-tag" v-if="tag !== ''">
           <span class="tag">{{ tag }}</span>
         </div>
@@ -98,12 +98,22 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    bgImage: {
+      type: String,
+      default: "",
+    },
   },
   name: "box",
   data() {
     return {
       isShow: false,
     };
+  },
+  computed: {
+    boxBgStyle() {
+      if (!this.bgImage) return {};
+      return { backgroundImage: `url(${this.bgImage})`, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat' };
+    },
   },
   mounted() {
     setTimeout(() => {
